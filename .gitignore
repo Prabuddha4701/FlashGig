@@ -1,0 +1,23 @@
+# Environments
+.env
+.env.local
+backend/.env
+backend/serviceAccountKey.json
+
+# Python
+backend/venv/
+backend/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Node
+node_modules/
+frontend/node_modules/
+dist/
+dist-ssr/
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
