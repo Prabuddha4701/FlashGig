@@ -23,7 +23,7 @@ app = FastAPI(title="Microworker Task Platform", lifespan=lifespan)
 # Allow React dev server
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://flashgig.vercel.app/"], 
+    allow_origins=["https://flashgig.vercel.app"], 
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
