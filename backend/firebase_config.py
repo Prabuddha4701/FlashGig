@@ -30,7 +30,24 @@ def init_firebase():
     if _firebase_initialized:
         return  # Already initialized, skip
 
-    cred_path = os.getenv("FIREBASE_CONFIG_JSON")
+   firebase_json_str = os.getenv("FIREBASE_CONFIG_JSON")
+
+if firebase_json_str:
+    try:
+        # Step A: Convert the string into a Python Dictionary
+        cred_dict = json.loads(firebase_json_str)
+        
+        # Step B: Fix the "Double Escaped Newlines" bug
+        # This is the most common reason for 401s on Vercel
+        cred_dict["private_key"] = cred_dict["private_key"].replace("\\n", "\n")
+        
+        # Step C: Initialize
+        if not firebase_admin._apps:
+            cred = credentials.Certificate(cred_dict)
+            firebase_admin.initialize_app(cred)
+            
+    except Exception as e:
+        print(f"Firebase Init Error: {e}")
 
     if os.path.exists(cred_path):
         try:
