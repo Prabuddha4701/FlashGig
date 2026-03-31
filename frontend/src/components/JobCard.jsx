@@ -31,19 +31,23 @@ function JobCard({ job }) {
   }, [job]);
 
   return (
-    <div className="job-card glass-panel">
-      <span className="job-category">{job.category || 'General'}</span>
-      <h3 className="job-title">{job.title}</h3>
-      <p className="job-desc">
+    <div className="job-card glass-panel group">
+      <span className="inline-block px-3 py-1 bg-indigo-500/10 text-primary rounded-full text-sm font-semibold mb-4 w-fit">
+        {job.category || 'General'}
+      </span>
+      <h3 className="text-xl font-display font-bold mb-2 text-text-main group-hover:text-primary transition-colors">
+        {job.title}
+      </h3>
+      <p className="text-text-muted text-[0.95rem] leading-relaxed mb-6 flex-grow">
         {job.description?.length > 100 ? `${job.description.substring(0, 100)}...` : job.description}
       </p>
       
-      <div className="job-footer">
-        <div className="countdown">
-          <span>⏱️</span> {timeLeft}
+      <div className="flex justify-between items-center border-t border-border-color pt-4 mt-auto">
+        <div className="font-display font-semibold text-secondary flex items-center gap-2">
+          <span className="text-lg">⏱️</span> {timeLeft}
         </div>
         <Link to={`/jobs/${job.id}`}>
-          <button className="btn-primary" style={{ padding: '0.5rem 1rem', fontSize: '0.9rem' }}>
+          <button className="btn-primary !px-4 !py-2 !text-sm">
             Details
           </button>
         </Link>

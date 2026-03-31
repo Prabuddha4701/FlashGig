@@ -40,31 +40,57 @@ function JobApplications() {
   if (loading) return <div className="text-center mt-4">Loading applications...</div>;
 
   return (
-    <div className="animate-fade-in" style={{ padding: '2rem 0', maxWidth: '800px', margin: '0 auto' }}>
-      <h1 className="mb-4">Applications for Job ID: {id}</h1>
+    <div className="animate-fade-in py-12 px-4 max-w-4xl mx-auto">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
+        <div>
+          <h1 className="text-3xl font-display font-bold">Applications</h1>
+          <p className="text-text-muted text-sm mt-1">Review submissions for Job ID: <span className="font-mono text-primary">{id.substring(0, 12)}...</span></p>
+        </div>
+        <div className="bg-slate-800/50 px-4 py-2 rounded-xl border border-white/5 shadow-sm text-sm font-medium">
+          {applications.length} Submissions
+        </div>
+      </div>
       
-      {error && <div style={{ color: 'var(--danger)', marginBottom: '1rem' }}>{error}</div>}
+      {error && (
+        <div className="p-4 bg-red-500/10 border border-red-500/20 text-red-400 rounded-xl mb-8 flex items-center gap-3">
+          <span>❌</span> {error}
+        </div>
+      )}
       
       {applications.length === 0 && !error ? (
-        <p style={{ color: 'var(--text-muted)' }}>No applications received yet.</p>
+        <div className="glass-panel p-16 text-center border-dashed">
+          <div className="text-5xl mb-6 opacity-30">📂</div>
+          <p className="text-text-muted text-lg">No applications received yet. Check back soon!</p>
+        </div>
       ) : (
-        <div style={{ display: 'grid', gap: '1rem' }}>
+        <div className="grid gap-6">
           {applications.map(app => (
-            <div key={app.id} className="glass-panel" style={{ padding: '1.5rem' }}>
-              <h3 style={{ marginBottom: '0.5rem', display: 'flex', justifyContent: 'space-between' }}>
-                {app.worker_name}
-                <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+            <div key={app.id} className="glass-panel p-8 border hover:border-primary/30 transition-all group">
+              <div className="flex flex-col sm:flex-row justify-between items-start mb-6 gap-4 border-b border-border-color pb-4">
+                <div>
+                  <h3 className="text-xl font-bold text-text-main group-hover:text-primary transition-colors">
+                    {app.worker_name}
+                  </h3>
+                  <p className="text-sm font-semibold text-accent mt-1 flex items-center gap-2">
+                    <span className="opacity-70">📧</span> {app.contact_info}
+                  </p>
+                </div>
+                <div className="text-xs font-medium text-text-muted bg-slate-900/50 px-3 py-1.5 rounded-lg border border-white/5 uppercase tracking-wider">
                     {new Date(app.timestamp).toLocaleString()}
-                </span>
-              </h3>
-              <p style={{ color: 'var(--accent)', fontWeight: 'bold', marginBottom: '1rem' }}>
-                  Contact: {app.contact_info}
-              </p>
-              <div>
-                <strong>Evidence / Submission:</strong>
-                <p style={{ background: 'rgba(0,0,0,0.2)', padding: '1rem', borderRadius: '4px', marginTop: '0.5rem', whiteSpace: 'pre-wrap' }}>
+                </div>
+              </div>
+              
+              <div className="space-y-3">
+                <p className="text-xs font-bold text-text-muted uppercase tracking-widest">Submission Evidence</p>
+                <div className="bg-slate-950/50 p-6 rounded-xl border border-white/5 shadow-inner leading-relaxed text-text-main/90 whitespace-pre-wrap">
                   {app.submission_data}
-                </p>
+                </div>
+              </div>
+
+              <div className="mt-6 flex justify-end">
+                <button className="text-xs font-bold uppercase tracking-widest text-primary hover:text-secondary transition-colors flex items-center gap-2">
+                  Verify Credentials <span>→</span>
+                </button>
               </div>
             </div>
           ))}

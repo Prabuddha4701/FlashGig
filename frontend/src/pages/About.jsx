@@ -1,35 +1,41 @@
 function About() {
   return (
-    <div className="animate-fade-in" style={{ padding: '2rem 0', maxWidth: '800px', margin: '0 auto' }}>
-      <h1 className="mb-4 text-center">About FlashGig</h1>
-      <div className="glass-panel" style={{ padding: '2rem' }}>
-        <h2 className="mb-2">Our Mission</h2>
-        <p className="mb-4" style={{ color: 'var(--text-muted)', lineHeight: '1.6' }}>
-          FlashGig was created to bridge the gap between people who need small tasks done quickly and workers looking for flexible earning opportunities. 
-          We believe in creating a fair, transparent, and efficient marketplace for microwork.
-        </p>
+    <div className="animate-fade-in py-12 px-4 max-w-4xl mx-auto">
+      <h1 className="text-4xl font-display font-bold mb-10 text-center">About FlashGig</h1>
+      <div className="glass-panel p-8 md:p-12 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 blur-3xl -mr-32 -mt-32 rounded-full"></div>
+        
+        <div className="relative z-10">
+          <h2 className="text-2xl font-bold mb-4">Our Mission</h2>
+          <p className="text-text-muted text-lg leading-relaxed mb-12">
+            FlashGig was created to bridge the gap between people who need small tasks done quickly and workers looking for flexible earning opportunities. 
+            We believe in creating a fair, transparent, and efficient marketplace for microwork.
+          </p>
 
-        <h2 className="mb-2">How It Works</h2>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginTop: '1.5rem' }}>
-          <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
-            <div style={{ background: 'rgba(99, 102, 241, 0.2)', color: 'var(--primary)', width: '40px', height: '40px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', flexShrink: 0 }}>1</div>
-            <div>
-              <h3 className="mb-1">Providers Post Gigs</h3>
-              <p style={{ color: 'var(--text-muted)' }}>Anyone can become a provider by signing up. Post a task, set the category, and provide detailed instructions.</p>
+          <h2 className="text-2xl font-bold mb-8">How It Works</h2>
+          <div className="space-y-10 mt-6">
+            <div className="flex gap-6 items-start group">
+              <div className="bg-primary/20 text-primary w-12 h-12 rounded-full flex items-center justify-center font-black text-lg flex-shrink-0 border border-primary/30 group-hover:bg-primary group-hover:text-white transition-all duration-300">1</div>
+              <div>
+                <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">Providers Post Gigs</h3>
+                <p className="text-text-muted leading-relaxed">Anyone can become a provider by signing up. Post a task, select a category, and provide detailed instructions for your target workers.</p>
+              </div>
             </div>
-          </div>
-          <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
-            <div style={{ background: 'rgba(99, 102, 241, 0.2)', color: 'var(--primary)', width: '40px', height: '40px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', flexShrink: 0 }}>2</div>
-            <div>
-              <h3 className="mb-1">Workers Apply</h3>
-              <p style={{ color: 'var(--text-muted)' }}>Workers browse active jobs, complete the required task, and submit evidence via our streamlined form—no account required for workers!</p>
+            
+            <div className="flex gap-6 items-start group">
+              <div className="bg-primary/20 text-primary w-12 h-12 rounded-full flex items-center justify-center font-black text-lg flex-shrink-0 border border-primary/30 group-hover:bg-primary group-hover:text-white transition-all duration-300">2</div>
+              <div>
+                <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">Workers Apply</h3>
+                <p className="text-text-muted leading-relaxed">Workers browse active jobs, complete the required task, and submit evidence via our streamlined interface—no account required for workers!</p>
+              </div>
             </div>
-          </div>
-          <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
-            <div style={{ background: 'rgba(99, 102, 241, 0.2)', color: 'var(--primary)', width: '40px', height: '40px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold', flexShrink: 0 }}>3</div>
-            <div>
-              <h3 className="mb-1">Verification & Payment</h3>
-              <p style={{ color: 'var(--text-muted)' }}>Providers review submissions on their dashboard. Once verified with the external payment simulation, the task is marked as complete.</p>
+            
+            <div className="flex gap-6 items-start group">
+              <div className="bg-primary/20 text-primary w-12 h-12 rounded-full flex items-center justify-center font-black text-lg flex-shrink-0 border border-primary/30 group-hover:bg-primary group-hover:text-white transition-all duration-300">3</div>
+              <div>
+                <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">Verification & Payment</h3>
+                <p className="text-text-muted leading-relaxed">Providers review submissions accurately on their dashboard. Once verified via our secure simulation, the task is marked as successfully completed.</p>
+              </div>
             </div>
           </div>
         </div>

@@ -24,23 +24,25 @@ function Jobs() {
   }, []);
 
   return (
-    <div className="animate-fade-in" style={{ padding: '2rem 0' }}>
-      <div className="flex-space mb-4">
-        <h1>Active Gigs</h1>
-        <div style={{ color: 'var(--text-muted)' }}>{jobs.length} gigs available</div>
+    <div className="animate-fade-in py-8">
+      <div className="flex justify-between items-center mb-8 border-b border-border-color pb-4">
+        <h1 className="text-3xl font-display font-bold">Active Gigs</h1>
+        <div className="text-text-muted font-medium bg-slate-800/50 px-4 py-1 rounded-full border border-white/5">
+          {jobs.length} gigs available
+        </div>
       </div>
 
       {loading ? (
-        <div className="text-center" style={{ padding: '4rem 0' }}>
-          <div style={{ fontSize: '2rem', animation: 'spin 1s linear infinite' }}>⏳</div>
-          <p className="mt-4">Loading active jobs...</p>
+        <div className="flex flex-col items-center justify-center py-20">
+          <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+          <p className="mt-6 text-text-muted font-medium">Loading active jobs...</p>
         </div>
       ) : error && jobs.length === 0 ? (
-        <div className="glass-panel text-center" style={{ padding: '3rem', color: 'var(--danger)' }}>
+        <div className="glass-panel p-12 text-center text-danger border-danger/30">
           {error}
         </div>
       ) : (
-        <div className="job-grid">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {jobs.map(job => (
             <JobCard key={job.id} job={job} />
           ))}

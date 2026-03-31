@@ -28,11 +28,13 @@ function Navbar() {
   };
 
   return (
-    <nav className="navbar">
-      <div className="container nav-content">
-        <Link to="/" className="nav-logo">FlashGig</Link>
+    <nav className="fixed top-0 left-0 right-0 h-[70px] flex items-center z-[100] bg-slate-900/80 backdrop-blur-md border-b border-white/5">
+      <div className="max-w-[1200px] mx-auto px-6 flex justify-between items-center w-full">
+        <Link to="/" className="font-display text-2xl font-extrabold bg-gradient-to-br from-white to-primary bg-clip-text text-transparent">
+          FlashGig
+        </Link>
         
-        <div className="nav-links">
+        <div className="flex gap-8 items-center">
           <Link to="/" className={`nav-link ${isActive('/')}`}>Home</Link>
           <Link to="/jobs" className={`nav-link ${isActive('/jobs')}`}>Jobs</Link>
           <Link to="/about" className={`nav-link ${isActive('/about')}`}>About</Link>
@@ -43,14 +45,13 @@ function Navbar() {
               <Link to="/dashboard" className={`nav-link ${isActive('/dashboard')}`}>Dashboard</Link>
               <button 
                 onClick={handleLogout} 
-                className="btn-danger" 
-                style={{ padding: '0.4rem 1rem', fontSize: '0.9rem' }}
+                className="btn-danger !px-4 !py-2 !text-sm"
               >
                 Logout
               </button>
             </>
           ) : (
-            <Link to="/login" className="btn-primary" style={{ padding: '0.4rem 1rem', fontWeight: '500' }}>
+            <Link to="/login" className="btn-primary !px-4 !py-2 !font-medium" >
               Become a Provider
             </Link>
           )}

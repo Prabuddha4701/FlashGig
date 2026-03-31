@@ -73,24 +73,39 @@ function JobDetails() {
   if (!job) return <div className="text-center mt-4">Job not found.</div>;
 
   return (
-    <div className="animate-fade-in" style={{ padding: '2rem 0', maxWidth: '800px', margin: '0 auto' }}>
-      <div className="glass-panel" style={{ padding: '2rem', marginBottom: '2rem' }}>
-        <span className="job-category">{job.category}</span>
-        <h1 className="mb-2">{job.title}</h1>
-        <p style={{ color: 'var(--text-muted)', lineHeight: '1.6', marginBottom: '2rem' }}>
-          {job.description}
-        </p>
-        <div style={{ padding: '1rem', background: 'rgba(239, 68, 68, 0.1)', color: 'var(--danger)', borderRadius: '8px', display: 'inline-block' }}>
-          <strong>⚠️ Warning:</strong> Ensure you follow all instructions. Fake submissions will be rejected.
+    <div className="animate-fade-in py-12 px-4 max-w-3xl mx-auto">
+      <div className="glass-panel p-8 md:p-12 mb-10 overflow-hidden relative">
+        <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 blur-3xl -mr-16 -mt-16 rounded-full"></div>
+        <span className="inline-block px-4 py-1.5 bg-indigo-500/10 text-primary rounded-full text-xs font-bold uppercase tracking-widest mb-6">
+          {job.category}
+        </span>
+        <h1 className="text-4xl font-display font-extrabold mb-4 leading-tight">{job.title}</h1>
+        <div className="prose prose-invert max-w-none mb-10">
+          <p className="text-text-muted text-lg leading-relaxed whitespace-pre-wrap">
+            {job.description}
+          </p>
+        </div>
+        
+        <div className="p-5 bg-red-500/5 border border-red-500/20 text-red-400 rounded-xl flex gap-4 items-start shadow-inner">
+          <span className="text-xl">⚠️</span>
+          <div className="text-sm">
+            <strong className="block font-bold mb-1 text-red-300">Important Warning:</strong>
+            Ensure you follow all instructions precisely. Fake submissions or low-quality evidence will be rejected and may lead to account restrictions.
+          </div>
         </div>
       </div>
 
-      <div className="glass-panel" style={{ padding: '2rem' }}>
-        <h2 className="mb-4">Submit Evidence</h2>
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label>Full Name</label>
+      <div className="glass-panel p-8 md:p-12 border-t-4 border-t-primary">
+        <div className="mb-8">
+          <h2 className="text-2xl font-display font-bold mb-2">Submit Evidence</h2>
+          <p className="text-text-muted text-sm">Fill in the details below to complete this gig.</p>
+        </div>
+        
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="space-y-2">
+            <label className="text-xs font-bold text-text-muted uppercase tracking-wider">Full Name</label>
             <input 
+              className="form-input"
               type="text" 
               placeholder="e.g. John Doe"
               value={formData.worker_name}
@@ -98,31 +113,40 @@ function JobDetails() {
             />
           </div>
           
-          <div className="form-group">
-            <label>Contact Info (Phone or Email)</label>
+          <div className="space-y-2">
+            <label className="text-xs font-bold text-text-muted uppercase tracking-wider">Contact Info (Phone or Email)</label>
             <input 
+              className="form-input"
               type="text" 
-              placeholder="e.g. +1 234 567 8900"
+              placeholder="e.g. johndoe@example.com or +1 234 567 8900"
               value={formData.contact_info}
               onChange={e => setFormData({...formData, contact_info: e.target.value})}
             />
           </div>
           
-          <div className="form-group">
-            <label>Evidence Details / Link (20-1000 characters)</label>
+          <div className="space-y-2">
+            <label className="text-xs font-bold text-text-muted uppercase tracking-wider">Evidence Details / Link (20-1000 characters)</label>
             <textarea 
-              rows="5" 
+              className="form-input"
+              rows="6" 
               placeholder="Describe what you did. If there are images, provide a Google Drive / Imgur link."
               value={formData.submission_data}
               onChange={e => setFormData({...formData, submission_data: e.target.value})}
             ></textarea>
-            <div style={{ textAlign: 'right', fontSize: '0.8rem', color: formData.submission_data.length > 1000 ? 'var(--danger)' : 'var(--text-muted)' }}>
-              {formData.submission_data.length} / 1000
+            <div className={`text-right text-xs font-medium ${formData.submission_data.length > 1000 ? 'text-danger' : 'text-text-muted'}`}>
+              <span className={formData.submission_data.length < 20 ? 'text-amber-500' : ''}>
+                {formData.submission_data.length}
+              </span> / 1000 characters
             </div>
           </div>
           
-          <button type="submit" className="btn-primary" style={{ width: '100%' }} disabled={submitting}>
-            {submitting ? 'Submitting...' : 'Submit Application'}
+          <button type="submit" className="btn-primary w-full py-4 text-lg font-bold shadow-xl shadow-primary/30" disabled={submitting}>
+            {submitting ? (
+              <div className="flex items-center justify-center gap-3">
+                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                <span>Submitting...</span>
+              </div>
+            ) : 'Submit Application'}
           </button>
         </form>
       </div>

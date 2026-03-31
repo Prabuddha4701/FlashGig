@@ -11,9 +11,9 @@ import JobApplications from './pages/JobApplications'
 
 function App() {
   return (
-    <div className="page-wrapper">
+    <div className="pt-[70px] min-h-screen flex flex-col">
       <Navbar />
-      <main className="container">
+      <main className="max-w-[1200px] mx-auto px-6 w-full flex-grow">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/jobs" element={<Jobs />} />
