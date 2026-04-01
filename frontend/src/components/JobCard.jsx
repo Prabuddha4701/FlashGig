@@ -31,23 +31,23 @@ function JobCard({ job }) {
   }, [job]);
 
   return (
-    <div className="job-card glass-panel group">
-      <span className="inline-block px-3 py-1 bg-indigo-500/10 text-primary rounded-full text-sm font-semibold mb-4 w-fit">
+    <div className="job-card glass-panel group bg-sky-800/90">
+      <span className="bg-white px-3 py-1 text-black rounded-full text-sm font-semibold mb-4 w-full">
         {job.category || 'General'}
       </span>
-      <h3 className="text-xl font-display font-bold mb-2 text-text-main group-hover:text-primary transition-colors">
+      <h3 className="text-xl font-display font-bold mb-2 text-text-main ">
         {job.title}
       </h3>
-      <p className="text-text-muted text-[0.95rem] leading-relaxed mb-6 flex-grow">
+      <p className="text-white text-[0.95rem] leading-relaxed mb-6 flex-grow">
         {job.description?.length > 100 ? `${job.description.substring(0, 100)}...` : job.description}
       </p>
       
       <div className="flex justify-between items-center border-t border-border-color pt-4 mt-auto">
-        <div className="font-display font-semibold text-secondary flex items-center gap-2">
-          <span className="text-lg">⏱️</span> {timeLeft}
+        <div className="font-display font-semibold text-slate-900 flex items-center gap-2">
+          {timeLeft}
         </div>
         <Link to={`/jobs/${job.id}`}>
-          <button className="btn-primary !px-4 !py-2 !text-sm">
+          <button className="btn-secondary !px-4 !py-2 !text-sm">
             Details
           </button>
         </Link>

@@ -43,10 +43,10 @@ function JobApplications() {
     <div className="animate-fade-in py-12 px-4 max-w-4xl mx-auto">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-10 gap-4">
         <div>
-          <h1 className="text-3xl font-display font-bold">Applications</h1>
-          <p className="text-text-muted text-sm mt-1">Review submissions for Job ID: <span className="font-mono text-primary">{id.substring(0, 12)}...</span></p>
+          <h1 className="text-3xl font-display font-bold text-black">Applications</h1>
+          <p className="text-slate-900 text-sm mt-1">Review submissions for Job ID: <span className="font-mono text-primary">{id.substring(0, 12)}...</span></p>
         </div>
-        <div className="bg-slate-800/50 px-4 py-2 rounded-xl border border-white/5 shadow-sm text-sm font-medium">
+        <div className="bg-black/70 px-4 py-2 rounded-xl border border-white/5 shadow-sm text-sm font-medium">
           {applications.length} Submissions
         </div>
       </div>
@@ -58,24 +58,23 @@ function JobApplications() {
       )}
       
       {applications.length === 0 && !error ? (
-        <div className="glass-panel p-16 text-center border-dashed">
-          <div className="text-5xl mb-6 opacity-30">📂</div>
+        <div className="glass-panel bg-sky-800/80 p-16 text-center border-dashed">
           <p className="text-text-muted text-lg">No applications received yet. Check back soon!</p>
         </div>
       ) : (
         <div className="grid gap-6">
           {applications.map(app => (
-            <div key={app.id} className="glass-panel p-8 border hover:border-primary/30 transition-all group">
+            <div key={app.id} className="glass-panel bg-sky-800/80 p-8 border hover:border-primary/30 transition-all group">
               <div className="flex flex-col sm:flex-row justify-between items-start mb-6 gap-4 border-b border-border-color pb-4">
                 <div>
-                  <h3 className="text-xl font-bold text-text-main group-hover:text-primary transition-colors">
+                  <h3 className="text-xl font-bold text-text-main ">
                     {app.worker_name}
                   </h3>
-                  <p className="text-sm font-semibold text-accent mt-1 flex items-center gap-2">
-                    <span className="opacity-70">📧</span> {app.contact_info}
+                  <p className="text-sm font-semibold text-white mt-1 flex items-center gap-2">
+                    {app.contact_info}
                   </p>
                 </div>
-                <div className="text-xs font-medium text-text-muted bg-slate-900/50 px-3 py-1.5 rounded-lg border border-white/5 uppercase tracking-wider">
+                <div className="text-xs font-medium text-text-muted bg-black/70 text-white px-3 py-1.5 rounded-lg border border-white/5 uppercase tracking-wider">
                     {new Date(app.timestamp).toLocaleString()}
                 </div>
               </div>
@@ -88,7 +87,7 @@ function JobApplications() {
               </div>
 
               <div className="mt-6 flex justify-end">
-                <button className="text-xs font-bold uppercase tracking-widest text-primary hover:text-secondary transition-colors flex items-center gap-2">
+                <button className="text-xs font-bold uppercase tracking-widest text-white flex items-center gap-2">
                   Verify Credentials <span>→</span>
                 </button>
               </div>

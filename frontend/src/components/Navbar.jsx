@@ -30,7 +30,7 @@ function Navbar() {
   return (
     <nav className="fixed top-0 left-0 right-0 h-[70px] flex items-center z-[100] bg-slate-900/80 backdrop-blur-md border-b border-white/5">
       <div className="max-w-[1200px] mx-auto px-6 flex justify-between items-center w-full">
-        <Link to="/" className="font-display text-2xl font-extrabold bg-gradient-to-br from-white to-primary bg-clip-text text-transparent">
+        <Link to="/" className="font-display text-2xl font-extrabold ">
           FlashGig
         </Link>
         

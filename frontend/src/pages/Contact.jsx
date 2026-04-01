@@ -20,15 +20,15 @@ function Contact() {
   return (
     <div className="animate-fade-in py-16 px-4 max-w-2xl mx-auto">
       <div className="text-center mb-10">
-        <h1 className="text-4xl font-display font-bold mb-3 tracking-tight">Contact Us</h1>
-        <p className="text-text-muted">Have questions? We're here to help you 24/7.</p>
+        <h1 className="text-4xl text-slate-600 font-display font-bold mb-3 tracking-tight">Contact Us</h1>
+        <p className="text-slate-500">Have questions? We're here to help you 24/7.</p>
       </div>
       
-      <div className="glass-panel p-8 md:p-12 shadow-2xl relative">
+      <div className="glass-panel bg-sky-800/80 p-8 md:p-12 shadow-2xl relative">
         <div className="absolute -top-10 -left-10 w-32 h-32 bg-primary/10 blur-3xl rounded-full"></div>
         <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
           <div className="space-y-2">
-            <label className="text-xs font-bold text-text-muted uppercase tracking-widest px-1">Full Name</label>
+            <label className="text-xs font-bold text-text-muted uppercase text-white tracking-widest px-1">Full Name</label>
             <input 
               className="form-input"
               type="text" 
@@ -39,7 +39,7 @@ function Contact() {
           </div>
           
           <div className="space-y-2">
-            <label className="text-xs font-bold text-text-muted uppercase tracking-widest px-1">Email Address</label>
+            <label className="text-xs font-bold text-white text-text-muted uppercase tracking-widest px-1">Email Address</label>
             <input 
               className="form-input"
               type="email" 
@@ -50,7 +50,7 @@ function Contact() {
           </div>
           
           <div className="space-y-2">
-            <label className="text-xs font-bold text-text-muted uppercase tracking-widest px-1">Message</label>
+            <label className="text-xs font-bold text-white text-text-muted uppercase tracking-widest px-1">Message</label>
             <textarea 
               className="form-input"
               rows="6" 
@@ -60,28 +60,13 @@ function Contact() {
             ></textarea>
           </div>
           
-          <button type="submit" className="btn-primary w-full py-4 text-lg font-bold shadow-xl shadow-primary/30 active:scale-95 transition-all">
+          <button type="submit" className="btn-primary w-full py-4 text-lg font-bold shadow-xl ">
             Send Message
           </button>
         </form>
       </div>
 
-      <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="glass-panel p-6 flex items-center gap-4 border-white/5">
-          <div className="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center text-xl">📍</div>
-          <div>
-            <p className="text-xs font-bold uppercase text-text-muted">Location</p>
-            <p className="text-sm font-semibold">Global Support Center</p>
-          </div>
-        </div>
-        <div className="glass-panel p-6 flex items-center gap-4 border-white/5">
-          <div className="w-12 h-12 bg-secondary/20 rounded-full flex items-center justify-center text-xl">📧</div>
-          <div>
-            <p className="text-xs font-bold uppercase text-text-muted">Email</p>
-            <p className="text-sm font-semibold">support@flashgig.com</p>
-          </div>
-        </div>
-      </div>
+     
     </div>
   );
 }

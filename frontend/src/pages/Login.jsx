@@ -37,7 +37,7 @@ function Login() {
 
   return (
     <div className="animate-fade-in py-20 px-4 max-w-md mx-auto">
-      <div className="glass-panel p-10 border-t-4 border-t-primary shadow-[0_20px_50px_rgba(0,0,0,0.3)]">
+      <div className="glass-panel bg-sky-800/80 p-10 ">
         <div className="text-center mb-10">
           <h2 className="text-3xl font-display font-bold mb-2 tracking-tight">
             {isLogin ? 'Provider Login' : 'Become a Provider'}
@@ -49,7 +49,7 @@ function Login() {
 
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-2">
-            <label className="text-xs font-bold text-text-muted uppercase tracking-widest">Email Address</label>
+            <label className="text-xs font-bold text-text-muted uppercase tracking-widest text-white">Email Address</label>
             <input 
               className="form-input"
               type="email" 
@@ -60,7 +60,7 @@ function Login() {
           </div>
           
           <div className="space-y-2 mb-8">
-            <label className="text-xs font-bold text-text-muted uppercase tracking-widest">Password</label>
+            <label className="text-xs font-bold text-text-muted uppercase tracking-widest text-white">Password</label>
             <input 
               className="form-input"
               type="password" 
@@ -70,7 +70,7 @@ function Login() {
             />
           </div>
           
-          <button type="submit" className="btn-primary w-full py-4 text-lg font-bold shadow-xl shadow-primary/30 active:scale-95 transition-transform" disabled={loading}>
+          <button type="submit" className="btn-primary w-full py-4 text-lg font-bold " disabled={loading}>
             {loading ? (
               <div className="flex items-center justify-center gap-3">
                 <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
@@ -86,7 +86,7 @@ function Login() {
           </span>
           <button 
             type="button" 
-            className="text-primary font-bold hover:underline ml-1"
+            className=" font-semibold hover:underline ml-1"
             onClick={() => setIsLogin(!isLogin)}
           >
             {isLogin ? 'Sign up' : 'Log in'}

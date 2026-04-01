@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import api from '../api';
 
+
 function JobDetails() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -74,28 +75,28 @@ function JobDetails() {
 
   return (
     <div className="animate-fade-in py-12 px-4 max-w-3xl mx-auto">
-      <div className="glass-panel p-8 md:p-12 mb-10 overflow-hidden relative">
+      <div className="glass-panel bg-sky-800/80 p-8 md:p-12 mb-10 overflow-hidden relative">
         <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 blur-3xl -mr-16 -mt-16 rounded-full"></div>
-        <span className="inline-block px-4 py-1.5 bg-indigo-500/10 text-primary rounded-full text-xs font-bold uppercase tracking-widest mb-6">
+        <span className="inline-block px-4 py-1.5 bg-white text-black rounded-full text-xs w-full font-bold uppercase tracking-widest mb-6">
           {job.category}
         </span>
         <h1 className="text-4xl font-display font-extrabold mb-4 leading-tight">{job.title}</h1>
         <div className="prose prose-invert max-w-none mb-10">
-          <p className="text-text-muted text-lg leading-relaxed whitespace-pre-wrap">
+          <p className="text-white text-lg leading-relaxed whitespace-pre-wrap">
             {job.description}
           </p>
         </div>
         
-        <div className="p-5 bg-red-500/5 border border-red-500/20 text-red-400 rounded-xl flex gap-4 items-start shadow-inner">
-          <span className="text-xl">⚠️</span>
+        <div className="p-5 bg-sky-700/70 border border-red-500 text-white rounded-xl flex gap-4 items-start shadow-inner">
           <div className="text-sm">
-            <strong className="block font-bold mb-1 text-red-300">Important Warning:</strong>
+          
+            <strong className="block font-bold mb-1 text-white">Important Warning:</strong>
             Ensure you follow all instructions precisely. Fake submissions or low-quality evidence will be rejected and may lead to account restrictions.
           </div>
         </div>
       </div>
 
-      <div className="glass-panel p-8 md:p-12 border-t-4 border-t-primary">
+      <div className="glass-panel bg-sky-800/80 p-8 md:p-12 ">
         <div className="mb-8">
           <h2 className="text-2xl font-display font-bold mb-2">Submit Evidence</h2>
           <p className="text-text-muted text-sm">Fill in the details below to complete this gig.</p>
@@ -103,7 +104,7 @@ function JobDetails() {
         
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="space-y-2">
-            <label className="text-xs font-bold text-text-muted uppercase tracking-wider">Full Name</label>
+            <label className="text-xs font-bold text-text-muted uppercase tracking-wider text-white">Full Name</label>
             <input 
               className="form-input"
               type="text" 
@@ -114,7 +115,7 @@ function JobDetails() {
           </div>
           
           <div className="space-y-2">
-            <label className="text-xs font-bold text-text-muted uppercase tracking-wider">Contact Info (Phone or Email)</label>
+            <label className="text-xs font-bold text-text-muted uppercase tracking-wider text-white">Contact Info (Phone or Email)</label>
             <input 
               className="form-input"
               type="text" 
@@ -125,7 +126,7 @@ function JobDetails() {
           </div>
           
           <div className="space-y-2">
-            <label className="text-xs font-bold text-text-muted uppercase tracking-wider">Evidence Details / Link (20-1000 characters)</label>
+            <label className="text-xs font-bold text-text-muted uppercase tracking-wider text-white">Evidence Details / Link (20-1000 characters)</label>
             <textarea 
               className="form-input"
               rows="6" 
@@ -134,13 +135,13 @@ function JobDetails() {
               onChange={e => setFormData({...formData, submission_data: e.target.value})}
             ></textarea>
             <div className={`text-right text-xs font-medium ${formData.submission_data.length > 1000 ? 'text-danger' : 'text-text-muted'}`}>
-              <span className={formData.submission_data.length < 20 ? 'text-amber-500' : ''}>
+              <span className={formData.submission_data.length < 20 ? 'text-white' : ''}>
                 {formData.submission_data.length}
               </span> / 1000 characters
             </div>
           </div>
           
-          <button type="submit" className="btn-primary w-full py-4 text-lg font-bold shadow-xl shadow-primary/30" disabled={submitting}>
+          <button type="submit" className="btn-primary w-full py-4 text-lg font-bold " disabled={submitting}>
             {submitting ? (
               <div className="flex items-center justify-center gap-3">
                 <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>

@@ -25,16 +25,16 @@ function Jobs() {
 
   return (
     <div className="animate-fade-in py-8">
-      <div className="flex justify-between items-center mb-8 border-b border-border-color pb-4">
-        <h1 className="text-3xl font-display font-bold">Active Gigs</h1>
-        <div className="text-text-muted font-medium bg-slate-800/50 px-4 py-1 rounded-full border border-white/5">
+      <div className="flex justify-between items-center mb-8 pb-4">
+        <h1 className="text-3xl font-display font-bold text-slate-800">Active Gigs</h1>
+        <div className="text-black font-medium bg-white/70 px-4 py-1 rounded-full border border-white/5">
           {jobs.length} gigs available
         </div>
       </div>
 
       {loading ? (
         <div className="flex flex-col items-center justify-center py-20">
-          <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+          <div className="w-12 h-12 border-4 border-sky-600 border-t-transparent rounded-full animate-spin"></div>
           <p className="mt-6 text-text-muted font-medium">Loading active jobs...</p>
         </div>
       ) : error && jobs.length === 0 ? (
