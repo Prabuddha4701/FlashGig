@@ -1,89 +1,89 @@
-import { useState } from 'react';
-import toast from 'react-hot-toast';
+import { useState } from 'react'
 
-function Contact() {
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+const info = [
+  { label: 'Email',    value: 'support@unigig.io' },
+  { label: 'Response', value: 'Usually same day' },
+  { label: 'Coverage', value: 'Global · English' },
+]
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!formData.name || !formData.email || !formData.message) {
-        toast.error('Please fill all fields');
-        return;
-    }
-    // Simulate sending message
-    setTimeout(() => {
-        toast.success("Message sent successfully! We'll get back to you soon.");
-        setFormData({ name: '', email: '', message: '' });
-    }, 1000);
-  };
+export default function Contact() {
+  const [form, setForm] = useState({ name: '', email: '', subject: '', message: '' })
 
   return (
-    <div className="animate-fade-in py-16 px-4 max-w-2xl mx-auto">
-      <div className="text-center mb-10">
-        <h1 className="text-4xl font-display font-bold mb-3 tracking-tight">Contact Us</h1>
-        <p className="text-text-muted">Have questions? We're here to help you 24/7.</p>
-      </div>
-      
-      <div className="glass-panel p-8 md:p-12 shadow-2xl relative">
-        <div className="absolute -top-10 -left-10 w-32 h-32 bg-primary/10 blur-3xl rounded-full"></div>
-        <form onSubmit={handleSubmit} className="space-y-6 relative z-10">
-          <div className="space-y-2">
-            <label className="text-xs font-bold text-text-muted uppercase tracking-widest px-1">Full Name</label>
-            <input 
-              className="form-input"
-              type="text" 
-              placeholder="Your name"
-              value={formData.name}
-              onChange={e => setFormData({...formData, name: e.target.value})}
-            />
-          </div>
-          
-          <div className="space-y-2">
-            <label className="text-xs font-bold text-text-muted uppercase tracking-widest px-1">Email Address</label>
-            <input 
-              className="form-input"
-              type="email" 
-              placeholder="Your email address"
-              value={formData.email}
-              onChange={e => setFormData({...formData, email: e.target.value})}
-            />
-          </div>
-          
-          <div className="space-y-2">
-            <label className="text-xs font-bold text-text-muted uppercase tracking-widest px-1">Message</label>
-            <textarea 
-              className="form-input"
-              rows="6" 
-              placeholder="How can we help?"
-              value={formData.message}
-              onChange={e => setFormData({...formData, message: e.target.value})}
-            ></textarea>
-          </div>
-          
-          <button type="submit" className="btn-primary w-full py-4 text-lg font-bold shadow-xl shadow-primary/30 active:scale-95 transition-all">
-            Send Message
-          </button>
-        </form>
+    <div className="page">
+      {/* Header */}
+      <div className="max-w-xl mx-auto text-center mb-12">
+        <span className="badge badge-brand mb-4">Get in Touch</span>
+        <h1 style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 'clamp(28px,5vw,44px)', color: 'var(--text)', marginBottom: '0.75rem' }}>
+          How Can We Help?
+        </h1>
+        <p style={{ fontSize: 15, color: 'var(--muted)', lineHeight: 1.65 }}>
+          Questions about UniGig, a task issue, or something else? Drop us a message.
+        </p>
       </div>
 
-      <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="glass-panel p-6 flex items-center gap-4 border-white/5">
-          <div className="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center text-xl">📍</div>
-          <div>
-            <p className="text-xs font-bold uppercase text-text-muted">Location</p>
-            <p className="text-sm font-semibold">Global Support Center</p>
-          </div>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-7 max-w-4xl mx-auto">
+        {/* Form */}
+        <div className="lg:col-span-2 rounded-2xl border p-7" style={{ background: 'var(--surface)', borderColor: 'var(--border)', borderTop: '3px solid var(--color-brand)' }}>
+          <form
+            action={`mailto:support@unigig.io`}
+            method="get"
+            encType="text/plain"
+            style={{ display: 'flex', flexDirection: 'column', gap: 18 }}
+          >
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="label">Name *</label>
+                <input className="input" type="text" name="name" placeholder="Your name"
+                  value={form.name} onChange={e => setForm({ ...form, name: e.target.value })}
+                />
+              </div>
+              <div>
+                <label className="label">Email *</label>
+                <input className="input" type="email" name="email" placeholder="your@email.com"
+                  value={form.email} onChange={e => setForm({ ...form, email: e.target.value })}
+                />
+              </div>
+            </div>
+            <div>
+              <label className="label">Subject</label>
+              <input className="input" type="text" name="subject" placeholder="e.g. Payment question"
+                value={form.subject} onChange={e => setForm({ ...form, subject: e.target.value })}
+              />
+            </div>
+            <div>
+              <label className="label">Message *</label>
+              <textarea className="input" name="body" rows={6} placeholder="Describe your issue or question…"
+                value={form.message} onChange={e => setForm({ ...form, message: e.target.value })}
+              />
+            </div>
+            <button type="submit" className="btn-primary py-3 text-base">
+              Send Message
+            </button>
+          </form>
         </div>
-        <div className="glass-panel p-6 flex items-center gap-4 border-white/5">
-          <div className="w-12 h-12 bg-secondary/20 rounded-full flex items-center justify-center text-xl">📧</div>
-          <div>
-            <p className="text-xs font-bold uppercase text-text-muted">Email</p>
-            <p className="text-sm font-semibold">support@flashgig.com</p>
+
+        {/* Info sidebar */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          {info.map(i => (
+            <div key={i.label} className="rounded-2xl border p-5" style={{ background: 'var(--surface)', borderColor: 'var(--border)' }}>
+              <p className="label mb-0.5">{i.label}</p>
+              <p style={{ fontSize: 13, fontWeight: 600, color: 'var(--text)' }}>{i.value}</p>
+            </div>
+          ))}
+
+          {/* FAQ nudge */}
+          <div className="rounded-2xl border p-5 mt-auto" style={{ background: 'var(--raised)', borderColor: 'var(--border)' }}>
+            <p style={{ fontSize: 13, fontWeight: 700, color: 'var(--text)', marginBottom: 6 }}>Quick Answers</p>
+            <ul style={{ fontSize: 12, color: 'var(--muted)', lineHeight: 1.9, paddingLeft: 0, listStyle: 'none' }}>
+              <li>Do workers need an account? <strong style={{ color: 'var(--text)' }}>No</strong></li>
+              <li>When do I get paid? <strong style={{ color: 'var(--text)' }}>Provider contacts you directly</strong></li>
+              <li>Is it free to apply? <strong style={{ color: 'var(--text)' }}>Yes, always</strong></li>
+              <li>Can I post multiple gigs? <strong style={{ color: 'var(--text)' }}>Yes</strong></li>
+            </ul>
           </div>
         </div>
       </div>
     </div>
-  );
+  )
 }
-
-export default Contact;

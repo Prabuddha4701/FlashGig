@@ -1,211 +1,276 @@
-import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { auth } from '../firebase';
-import toast from 'react-hot-toast';
-import api from '../api';
+import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { auth } from '../firebase'
+import toast from 'react-hot-toast'
+import api from '../api'
 
-function Dashboard() {
-  const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState('jobs'); // 'jobs' or 'newJob'
-  
-  // Dashboard state
-  const [myJobs, setMyJobs] = useState([]);
-  const [loadingJobs, setLoadingJobs] = useState(false);
-  
-  // New Job state
-  const [jobForm, setJobForm] = useState({ title: '', description: '', category: 'General' });
-  const [submittingJob, setSubmittingJob] = useState(false);
+const CATEGORIES = ['General', 'Data Entry', 'Social Media', 'Usability Testing', 'Photography', 'Content Writing', 'Research & Survey']
+
+const categoryColors = {
+  'General':           { bg: 'rgba(124,58,237,.12)', color: '#a78bfa', border: 'rgba(124,58,237,.25)' },
+  'Data Entry':        { bg: 'rgba(245,158,11,.12)',  color: '#fbbf24', border: 'rgba(245,158,11,.25)' },
+  'Social Media':      { bg: 'rgba(59,130,246,.12)',  color: '#60a5fa', border: 'rgba(59,130,246,.25)' },
+  'Usability Testing': { bg: 'rgba(16,185,129,.12)',  color: '#34d399', border: 'rgba(16,185,129,.25)' },
+  'Photography':       { bg: 'rgba(236,72,153,.12)',  color: '#f472b6', border: 'rgba(236,72,153,.25)' },
+  'Content Writing':   { bg: 'rgba(245,158,11,.12)',  color: '#fbbf24', border: 'rgba(245,158,11,.25)' },
+  'Research & Survey': { bg: 'rgba(16,185,129,.12)',  color: '#34d399', border: 'rgba(16,185,129,.25)' },
+}
+
+export default function Dashboard() {
+  const navigate = useNavigate()
+  const [tab, setTab]               = useState('jobs')
+  const [myJobs, setMyJobs]         = useState([])
+  const [loadingJobs, setLoadingJobs] = useState(false)
+  const [jobForm, setJobForm]       = useState({ title: '', description: '', category: 'General' })
+  const [submitting, setSubmitting] = useState(false)
+  const [user, setUser]             = useState(null)
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-        if (!user) {
-            navigate('/login');
-        } else {
-            fetchProviderJobs();
-        }
-    });
-    
-    return () => unsubscribe();
-  }, [navigate]);
+    const unsub = auth.onAuthStateChanged(u => {
+      if (!u) navigate('/login')
+      else { setUser(u); fetchJobs() }
+    })
+    return () => unsub()
+  }, [navigate])
 
-  const fetchProviderJobs = async () => {
-    setLoadingJobs(true);
+  const fetchJobs = async () => {
+    setLoadingJobs(true)
     try {
-      if (!auth.currentUser) return;
-      const token = await auth.currentUser.getIdToken();
-      const response = await api.get('/jobs/provider', { headers: { Authorization: `Bearer ${token}` } });
-      
-      // The backend doesn't return applications count by default in job model, 
-      // but we can map it or just use a placeholder for now as requested.
-      const jobsWithStatus = response.data.map(job => ({
-          ...job,
-          status: new Date(job.expires_at) > new Date() ? 'Active' : 'Expired',
-          applications_count: '?' // We can add an endpoint to fetch counts if needed later
-      }));
-      setMyJobs(jobsWithStatus);
-      setLoadingJobs(false);
-      
-    } catch (err) {
-      console.error(err);
-      toast.error('Failed to fetch your jobs');
-      setLoadingJobs(false);
+      if (!auth.currentUser) return
+      const token = await auth.currentUser.getIdToken()
+      const res = await api.get('/jobs/provider', { headers: { Authorization: `Bearer ${token}` } })
+      setMyJobs(res.data.map(j => ({
+        ...j,
+        status: new Date(j.expires_at) > new Date() ? 'Active' : 'Expired',
+      })))
+    } catch {
+      toast.error('Failed to load your gigs.')
+    } finally {
+      setLoadingJobs(false)
     }
-  };
+  }
 
-  const handlePostJob = async (e) => {
-    e.preventDefault();
-    if (!jobForm.title || !jobForm.description) {
-        toast.error("Title and Description are required");
-        return;
-    }
-    
-    setSubmittingJob(true);
+  const handlePostJob = async e => {
+    e.preventDefault()
+    if (!jobForm.title || !jobForm.description) { toast.error('Title and description are required.'); return }
+    setSubmitting(true)
     try {
-        // Normally simulate Payment validation and send auth token here
-        toast.loading("Simulating Payment Gateway...", { id: 'payment' });
-        
-        setTimeout(async () => {
-            toast.success("Payment Verified!", { id: 'payment' });
-            
-            try {
-                const token = await auth.currentUser.getIdToken();
-                await api.post('/jobs/', jobForm, { headers: { Authorization: `Bearer ${token}` } });
-                toast.success("Job posted successfully!");
-                setJobForm({ title: '', description: '', category: 'General' });
-                setActiveTab('jobs');
-                fetchProviderJobs();
-            } catch (err) {
-                toast.error("Failed to post job to server.");
-                console.error(err);
-            }
-            setSubmittingJob(false);
-        }, 1500);
-        
-    } catch(err) {
-        toast.error(err.message || "Failed to post job");
-        toast.dismiss('payment');
-        setSubmittingJob(false);
+      const token = await auth.currentUser.getIdToken()
+      await api.post('/jobs/', jobForm, { headers: { Authorization: `Bearer ${token}` } })
+      toast.success('Gig posted successfully! 🎉')
+      setJobForm({ title: '', description: '', category: 'General' })
+      setTab('jobs')
+      fetchJobs()
+    } catch {
+      toast.error('Failed to post gig.')
+    } finally {
+      setSubmitting(false)
     }
-  };
+  }
+
+  const activeCount  = myJobs.filter(j => j.status === 'Active').length
+  const expiredCount = myJobs.filter(j => j.status === 'Expired').length
 
   return (
-    <div className="animate-fade-in py-8 px-4 max-w-7xl mx-auto">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-10 border-b border-border-color pb-8">
-        <div>
-          <h1 className="text-4xl font-display font-bold mb-2">Provider Dashboard</h1>
-          <p className="text-text-muted">Manage your active gigs and create new opportunities.</p>
-        </div>
-        <div className="flex gap-4 p-1 bg-slate-800/50 rounded-xl border border-white/5 w-full md:w-auto">
-          <button 
-            className={`flex-1 md:flex-none px-6 py-2.5 rounded-lg font-semibold transition-all duration-300 ${activeTab === 'jobs' ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-text-muted hover:text-text-main'}`}
-            onClick={() => setActiveTab('jobs')}
-          >
-            My Gigs
-          </button>
-          <button 
-            className={`flex-1 md:flex-none px-6 py-2.5 rounded-lg font-semibold transition-all duration-300 ${activeTab === 'newJob' ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-text-muted hover:text-text-main'}`}
-            onClick={() => setActiveTab('newJob')}
-          >
-            + Post a Gig
-          </button>
-        </div>
+    <div className="page">
+
+      {/* ── Header ── */}
+      <div style={{ marginBottom: 32 }}>
+        <h1 style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 'clamp(24px,4vw,36px)', color: 'var(--text)', marginBottom: 6 }}>
+          Provider Dashboard
+        </h1>
+        <p style={{ fontSize: 13, color: 'var(--muted)' }}>
+          {user?.email && <span style={{ color: 'var(--color-brand-light)', fontWeight: 600 }}>{user.email}</span>}
+          {user?.email && ' · '}Manage your gigs and track applications.
+        </p>
       </div>
 
-      {activeTab === 'jobs' && (
-        <div className="glass-panel p-8">
-          <div className="flex justify-between items-center mb-8">
-            <h2 className="text-2xl font-bold">Posted Gigs</h2>
-            <div className="text-sm font-medium text-text-muted px-3 py-1 bg-slate-900/50 rounded-full border border-white/5">
-              {myJobs.length} Total
+      {/* ── Stat cards ── */}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 14, marginBottom: 32 }}>
+        {[
+          { label: 'Total Gigs',    value: myJobs.length,  icon: '📋', color: '#a78bfa' },
+          { label: 'Active',        value: activeCount,    icon: '✅', color: '#34d399' },
+          { label: 'Expired',       value: expiredCount,   icon: '⏰', color: '#f87171' },
+        ].map(s => (
+          <div key={s.label} style={{
+            background: 'var(--surface)', border: '1px solid var(--border)',
+            borderRadius: 16, padding: '20px 22px',
+            display: 'flex', alignItems: 'center', gap: 14,
+          }}>
+            <span style={{ fontSize: 28 }}>{s.icon}</span>
+            <div>
+              <p style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 26, color: s.color, lineHeight: 1 }}>{s.value}</p>
+              <p style={{ fontSize: 11, color: 'var(--muted)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '.07em', marginTop: 3 }}>{s.label}</p>
             </div>
           </div>
-          
+        ))}
+      </div>
+
+      {/* ── Tab switcher ── */}
+      <div style={{
+        display: 'inline-flex', gap: 4, padding: 4, borderRadius: 12,
+        background: 'var(--raised)', border: '1px solid var(--border)', marginBottom: 24,
+      }}>
+        {[['jobs', '📋  My Gigs'], ['newJob', '＋  Post a Gig']].map(([key, label]) => (
+          <button
+            key={key}
+            onClick={() => setTab(key)}
+            style={{
+              padding: '9px 22px', borderRadius: 9, fontWeight: 600, fontSize: 13,
+              border: 'none', cursor: 'pointer', transition: 'all .2s',
+              background: tab === key ? 'var(--color-brand)' : 'transparent',
+              color: tab === key ? '#fff' : 'var(--muted)',
+              fontFamily: 'var(--font-sans)',
+            }}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+
+      {/* ── My Gigs tab ── */}
+      {tab === 'jobs' && (
+        <div style={{ background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 20, padding: '28px 28px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
+            <h2 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 18, color: 'var(--text)' }}>Posted Gigs</h2>
+            <span style={{ fontSize: 12, color: 'var(--subtle)', background: 'var(--raised)', border: '1px solid var(--border)', padding: '4px 14px', borderRadius: 999 }}>
+              {myJobs.length} total
+            </span>
+          </div>
+
           {loadingJobs ? (
-              <div className="flex justify-center py-12">
-                <div className="w-10 h-10 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
-              </div>
+            <div style={{ display: 'flex', justifyContent: 'center', padding: '56px 0' }}>
+              <div className="spinner" style={{ width: 32, height: 32, borderWidth: 3 }} />
+            </div>
           ) : myJobs.length === 0 ? (
-              <div className="text-center py-12 bg-slate-900/30 rounded-2xl border border-dashed border-border-color">
-                <p className="text-text-muted text-lg">You haven't posted any gigs yet.</p>
-                <button onClick={() => setActiveTab('newJob')} className="mt-4 text-primary font-semibold hover:underline">Create your first gig →</button>
-              </div>
+            <div style={{ textAlign: 'center', padding: '56px 0', border: '1px dashed var(--border)', borderRadius: 12 }}>
+              <p style={{ fontSize: 36, marginBottom: 10 }}>📭</p>
+              <p style={{ color: 'var(--muted)', fontSize: 14, marginBottom: 16 }}>No gigs posted yet.</p>
+              <button style={{
+                padding: '8px 20px', borderRadius: 9, fontSize: 13, fontWeight: 600,
+                background: 'var(--color-brand)', color: '#fff', border: 'none', cursor: 'pointer',
+                fontFamily: 'var(--font-sans)',
+              }} onClick={() => setTab('newJob')}>
+                Post Your First Gig
+              </button>
+            </div>
           ) : (
-              <div className="grid gap-4">
-                  {myJobs.map(job => (
-                      <div key={job.id} className="flex flex-col sm:flex-row justify-between items-start sm:items-center p-6 border border-border-color rounded-xl bg-slate-900/40 hover:bg-slate-900/60 transition-all group">
-                          <div className="mb-4 sm:mb-0">
-                              <h3 className="text-lg font-bold mb-1 group-hover:text-primary transition-colors">{job.title}</h3>
-                              <div className="flex items-center gap-3">
-                                <span className={`text-xs font-bold px-2 py-0.5 rounded uppercase tracking-wider ${job.status === 'Active' ? 'bg-emerald-500/10 text-emerald-500' : 'bg-red-500/10 text-red-500'}`}>
-                                  {job.status}
-                                </span>
-                                <span className="text-xs text-text-muted">ID: {job.id.substring(0, 8)}...</span>
-                              </div>
-                          </div>
-                          <div className="flex items-center gap-6 w-full sm:w-auto justify-between sm:justify-start">
-                              <div className="text-right">
-                                  <p className="text-sm font-bold text-accent mb-1">
-                                      {job.applications_count !== undefined ? job.applications_count : job.applications} Applications
-                                  </p>
-                                  <p className="text-[10px] text-text-muted uppercase tracking-widest font-semibold">Real-time update</p>
-                              </div>
-                              <button className="btn-secondary !px-4 !py-2 !text-xs whitespace-nowrap" onClick={() => navigate(`/jobs/${job.id}/applications`)}>View Details</button>
-                          </div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+              {myJobs.map(job => {
+                const catStyle = categoryColors[job.category] || categoryColors['General']
+                const daysLeft = Math.max(0, Math.floor((new Date(job.expires_at) - Date.now()) / 86400000))
+                return (
+                  <div
+                    key={job.id}
+                    style={{
+                      background: 'var(--raised)', border: '1px solid var(--border)',
+                      borderRadius: 14, padding: '18px 20px',
+                      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                      gap: 16, transition: 'border-color .2s',
+                    }}
+                    onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(124,58,237,.4)'}
+                    onMouseLeave={e => e.currentTarget.style.borderColor = 'var(--border)'}
+                  >
+                    {/* Left — icon + info */}
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 14, flex: 1, minWidth: 0 }}>
+                      <div style={{
+                        width: 44, height: 44, borderRadius: 12, flexShrink: 0,
+                        background: catStyle.bg, border: `1px solid ${catStyle.border}`,
+                        display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20,
+                      }}>
+                        {{ 'General': '⚙️', 'Data Entry': '📊', 'Social Media': '📣', 'Usability Testing': '📱', 'Photography': '📸', 'Content Writing': '✍️', 'Research & Survey': '🔬' }[job.category] || '⚙️'}
                       </div>
-                  ))}
-              </div>
+                      <div style={{ minWidth: 0 }}>
+                        <p style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 15, color: 'var(--text)', marginBottom: 6, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                          {job.title}
+                        </p>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+                          <span style={{
+                            fontSize: 11, fontWeight: 700, padding: '2px 9px', borderRadius: 999,
+                            background: catStyle.bg, color: catStyle.color, border: `1px solid ${catStyle.border}`,
+                          }}>{job.category}</span>
+                          <span style={{
+                            fontSize: 11, fontWeight: 700, padding: '2px 9px', borderRadius: 999,
+                            background: job.status === 'Active' ? 'rgba(16,185,129,.1)' : 'rgba(239,68,68,.1)',
+                            color: job.status === 'Active' ? '#34d399' : '#f87171',
+                            border: `1px solid ${job.status === 'Active' ? 'rgba(16,185,129,.25)' : 'rgba(239,68,68,.25)'}`,
+                          }}>{job.status}</span>
+                          {job.status === 'Active' && (
+                            <span style={{ fontSize: 11, color: 'var(--subtle)' }}>{daysLeft}d remaining</span>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Right — action */}
+                    <button
+                      style={{
+                        padding: '8px 18px', borderRadius: 9, fontSize: 13, fontWeight: 600,
+                        background: 'transparent', color: 'var(--color-brand-light)',
+                        border: '1px solid rgba(124,58,237,.35)', cursor: 'pointer',
+                        fontFamily: 'var(--font-sans)', whiteSpace: 'nowrap', transition: 'all .15s',
+                      }}
+                      onMouseEnter={e => { e.currentTarget.style.background = 'rgba(124,58,237,.1)' }}
+                      onMouseLeave={e => { e.currentTarget.style.background = 'transparent' }}
+                      onClick={() => navigate(`/jobs/${job.id}/applications`)}
+                    >
+                      View Apps →
+                    </button>
+                  </div>
+                )
+              })}
+            </div>
           )}
         </div>
       )}
 
-      {activeTab === 'newJob' && (
-        <div className="glass-panel p-8 md:p-12 max-w-2xl mx-auto">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl font-display font-bold mb-3">Create a New Gig</h2>
-            <p className="text-text-muted">Provide the details for your lightning task.</p>
+      {/* ── Post a Gig tab ── */}
+      {tab === 'newJob' && (
+        <div style={{
+          background: 'var(--surface)', border: '1px solid var(--border)',
+          borderTop: '3px solid var(--color-brand)',
+          borderRadius: 20, padding: '32px 32px', maxWidth: 560, margin: '0 auto',
+        }}>
+          <div style={{ marginBottom: 24 }}>
+            <h2 style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 22, color: 'var(--text)', marginBottom: 4 }}>Post a New Gig</h2>
+            <p style={{ fontSize: 13, color: 'var(--muted)' }}>Your task will be live for 7 days, visible to all UG students.</p>
           </div>
-          
-          <form onSubmit={handlePostJob} className="space-y-6">
-              <div className="space-y-2">
-                  <label className="text-sm font-bold text-text-muted uppercase tracking-wider">Gig Title</label>
-                  <input className="form-input" type="text" placeholder="e.g. Test my mobile app" value={jobForm.title} onChange={e => setJobForm({...jobForm, title: e.target.value})} />
-              </div>
-              <div className="space-y-2">
-                  <label className="text-sm font-bold text-text-muted uppercase tracking-wider">Category</label>
-                  <select className="form-input" value={jobForm.category} onChange={e => setJobForm({...jobForm, category: e.target.value})}>
-                      <option>General</option>
-                      <option>Data Entry</option>
-                      <option>Social Media</option>
-                      <option>Usability Testing</option>
-                      <option>Photography</option>
-                  </select>
-              </div>
-              <div className="space-y-2">
-                  <label className="text-sm font-bold text-text-muted uppercase tracking-wider">Detailed Description</label>
-                  <textarea className="form-input" rows="6" placeholder="Describe the task instructions accurately" value={jobForm.description} onChange={e => setJobForm({...jobForm, description: e.target.value})}></textarea>
-              </div>
-              
-              <div className="p-6 bg-indigo-500/10 border border-primary/30 rounded-xl space-y-2">
-                  <div className="flex justify-between items-center">
-                    <p className="font-bold text-primary">ℹ️ Required Payment</p>
-                    <p className="text-2xl font-display font-black">$5.00</p>
-                  </div>
-                  <p className="text-xs text-text-muted">This gig will be visible to all workers for exactly 7 days. Managed by FlashGig Secure Escrow.</p>
-              </div>
 
-              <button type="submit" className="btn-primary w-full py-4 text-lg shadow-xl shadow-primary/20" disabled={submittingJob}>
-                  {submittingJob ? (
-                    <div className="flex items-center justify-center gap-3">
-                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                      <span>Processing...</span>
-                    </div>
-                  ) : 'Proceed to Payment & Post'}
-              </button>
+          <form onSubmit={handlePostJob} style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
+            <div>
+              <label className="label">Gig Title</label>
+              <input className="input" type="text" placeholder="e.g. Test my new Android app"
+                value={jobForm.title} onChange={e => setJobForm({ ...jobForm, title: e.target.value })}
+              />
+            </div>
+
+            <div>
+              <label className="label">Category</label>
+              <select className="input" value={jobForm.category} onChange={e => setJobForm({ ...jobForm, category: e.target.value })}>
+                {CATEGORIES.map(c => <option key={c}>{c}</option>)}
+              </select>
+            </div>
+
+            <div>
+              <label className="label">Detailed Instructions</label>
+              <textarea className="input" rows={6}
+                placeholder="Describe exactly what you need done, and what evidence you require."
+                value={jobForm.description} onChange={e => setJobForm({ ...jobForm, description: e.target.value })}
+              />
+            </div>
+
+            <button type="submit" style={{
+              padding: '13px', borderRadius: 10, fontSize: 15, fontWeight: 700,
+              background: 'var(--color-brand)', color: '#fff', border: 'none',
+              cursor: submitting ? 'not-allowed' : 'pointer', opacity: submitting ? .7 : 1,
+              fontFamily: 'var(--font-sans)', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+            }} disabled={submitting}>
+              {submitting ? <><span className="spinner" /> Posting…</> : 'Post Gig →'}
+            </button>
           </form>
         </div>
       )}
-    </div>
-  );
-}
 
-export default Dashboard;
+    </div>
+  )
+}

@@ -1,47 +1,95 @@
-function About() {
-  return (
-    <div className="animate-fade-in py-12 px-4 max-w-4xl mx-auto">
-      <h1 className="text-4xl font-display font-bold mb-10 text-center">About FlashGig</h1>
-      <div className="glass-panel p-8 md:p-12 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 blur-3xl -mr-32 -mt-32 rounded-full"></div>
-        
-        <div className="relative z-10">
-          <h2 className="text-2xl font-bold mb-4">Our Mission</h2>
-          <p className="text-text-muted text-lg leading-relaxed mb-12">
-            FlashGig was created to bridge the gap between people who need small tasks done quickly and workers looking for flexible earning opportunities. 
-            We believe in creating a fair, transparent, and efficient marketplace for microwork.
-          </p>
+const steps = [
+  { n: '01', title: 'Providers Post Gigs', desc: 'Businesses or individuals register and post micro-tasks with clear instructions and a category. Gigs stay live for 7 days.' },
+  { n: '02', title: 'Students Apply',      desc: 'UG students browse open gigs with no sign-up needed, complete the task, and submit evidence through a simple form.' },
+  { n: '03', title: 'Review & Contact',    desc: 'Providers review submissions on their dashboard and contact approved applicants directly to arrange payment.' },
+]
 
-          <h2 className="text-2xl font-bold mb-8">How It Works</h2>
-          <div className="space-y-10 mt-6">
-            <div className="flex gap-6 items-start group">
-              <div className="bg-primary/20 text-primary w-12 h-12 rounded-full flex items-center justify-center font-black text-lg flex-shrink-0 border border-primary/30 group-hover:bg-primary group-hover:text-white transition-all duration-300">1</div>
-              <div>
-                <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">Providers Post Gigs</h3>
-                <p className="text-text-muted leading-relaxed">Anyone can become a provider by signing up. Post a task, select a category, and provide detailed instructions for your target workers.</p>
-              </div>
-            </div>
-            
-            <div className="flex gap-6 items-start group">
-              <div className="bg-primary/20 text-primary w-12 h-12 rounded-full flex items-center justify-center font-black text-lg flex-shrink-0 border border-primary/30 group-hover:bg-primary group-hover:text-white transition-all duration-300">2</div>
-              <div>
-                <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">Workers Apply</h3>
-                <p className="text-text-muted leading-relaxed">Workers browse active jobs, complete the required task, and submit evidence via our streamlined interface—no account required for workers!</p>
-              </div>
-            </div>
-            
-            <div className="flex gap-6 items-start group">
-              <div className="bg-primary/20 text-primary w-12 h-12 rounded-full flex items-center justify-center font-black text-lg flex-shrink-0 border border-primary/30 group-hover:bg-primary group-hover:text-white transition-all duration-300">3</div>
-              <div>
-                <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors">Verification & Payment</h3>
-                <p className="text-text-muted leading-relaxed">Providers review submissions accurately on their dashboard. Once verified via our secure simulation, the task is marked as successfully completed.</p>
-              </div>
-            </div>
+const values = [
+  { title: 'Student First',      desc: 'Every feature is built around students — flexible hours, no experience requirements, mobile-friendly.' },
+  { title: 'Fair & Transparent', desc: 'Clear task descriptions, open contact details, and no hidden fees. Providers and students connect directly.' },
+  { title: 'Inclusive',          desc: 'Open to undergraduates from any university, any country. Language and location are no barriers.' },
+]
+
+export default function About() {
+  return (
+    <div className="page">
+      {/* Hero */}
+      <div className="max-w-2xl mx-auto text-center mb-16">
+        <span className="badge badge-brand mb-4">About UniGig</span>
+        <h1 style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 'clamp(30px,6vw,52px)', color: 'var(--text)', lineHeight: 1.1, marginBottom: '1rem' }}>
+          Making Student Life a Little Easier
+        </h1>
+        <p style={{ fontSize: 16, color: 'var(--muted)', lineHeight: 1.7 }}>
+          UniGig is a micro-task marketplace built exclusively for undergraduate students.
+          We connect students with short, flexible gigs so you can earn real money around your studies.
+        </p>
+      </div>
+
+      {/* Mission */}
+      <div className="rounded-2xl overflow-hidden border mb-12" style={{ background: 'var(--surface)', borderColor: 'var(--border)' }}>
+        <div className="grid grid-cols-1 md:grid-cols-2">
+          <div className="p-8 md:p-10">
+            <p className="badge badge-brand mb-4">Our Mission</p>
+            <h2 style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 24, color: 'var(--text)', marginBottom: '1rem' }}>
+              Bridging the Gap Between Students and Opportunity
+            </h2>
+            <p style={{ fontSize: 14, color: 'var(--muted)', lineHeight: 1.75 }}>
+              Tuition fees, rent, books — student costs add up fast. We believe every student deserves a
+              flexible way to earn real income without sacrificing academic performance.
+              UniGig turns spare hours into real earnings.
+            </p>
+          </div>
+          <div
+            className="hidden md:block"
+            style={{
+              background: 'var(--raised)',
+              minHeight: 220,
+              position: 'relative',
+              overflow: 'hidden',
+            }}
+          >
+            <img
+              src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=600&q=75"
+              alt="Students"
+              style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: .45 }}
+            />
           </div>
         </div>
       </div>
-    </div>
-  );
-}
 
-export default About;
+      {/* How it works */}
+      <div className="mb-12">
+        <div className="text-center mb-8">
+          <p className="badge badge-brand mb-3">How It Works</p>
+          <h2 style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 28, color: 'var(--text)' }}>
+            Simple 3-Step Process
+          </h2>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          {steps.map(s => (
+            <div key={s.n} className="rounded-2xl border p-6 flex flex-col gap-3" style={{ background: 'var(--surface)', borderColor: 'var(--border)' }}>
+              <span style={{ fontFamily: 'var(--font-display)', fontSize: 40, fontWeight: 800, color: 'var(--border)', lineHeight: 1 }}>{s.n}</span>
+              <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 16, color: 'var(--text)' }}>{s.title}</h3>
+              <p style={{ fontSize: 13, color: 'var(--muted)', lineHeight: 1.65 }}>{s.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Values */}
+      <div className="mb-12">
+        <h2 className="text-center mb-8" style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 28, color: 'var(--text)' }}>
+          Our Values
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+          {values.map(v => (
+            <div key={v.title} className="rounded-2xl border p-6 flex flex-col gap-3" style={{ background: 'var(--surface)', borderColor: 'var(--border)' }}>
+              <h3 style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 16, color: 'var(--text)' }}>{v.title}</h3>
+              <p style={{ fontSize: 13, color: 'var(--muted)', lineHeight: 1.65 }}>{v.desc}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}

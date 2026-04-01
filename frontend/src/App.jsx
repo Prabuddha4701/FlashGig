@@ -1,4 +1,5 @@
 import { Routes, Route } from 'react-router-dom'
+import { useEffect } from 'react'
 import Navbar from './components/Navbar'
 import Home from './pages/Home'
 import Jobs from './pages/Jobs'
@@ -10,19 +11,29 @@ import Dashboard from './pages/Dashboard'
 import JobApplications from './pages/JobApplications'
 
 function App() {
+  // Apply saved theme before first paint — prevents flash
+  useEffect(() => {
+    const saved = localStorage.getItem('theme')
+    if (saved === 'light') {
+      document.documentElement.classList.add('light')
+    } else {
+      document.documentElement.classList.remove('light')
+    }
+  }, [])
+
   return (
-    <div className="pt-[70px] min-h-screen flex flex-col">
+    <div style={{ minHeight: '100svh', display: 'flex', flexDirection: 'column' }}>
       <Navbar />
-      <main className="max-w-[1200px] mx-auto px-6 w-full flex-grow">
+      <main style={{ flex: 1, paddingTop: 64 }}>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/jobs" element={<Jobs />} />
-          <Route path="/jobs/:id" element={<JobDetails />} />
+          <Route path="/"                      element={<Home />} />
+          <Route path="/jobs"                  element={<Jobs />} />
+          <Route path="/jobs/:id"              element={<JobDetails />} />
           <Route path="/jobs/:id/applications" element={<JobApplications />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/about"                 element={<About />} />
+          <Route path="/contact"               element={<Contact />} />
+          <Route path="/login"                 element={<Login />} />
+          <Route path="/dashboard"             element={<Dashboard />} />
         </Routes>
       </main>
     </div>
