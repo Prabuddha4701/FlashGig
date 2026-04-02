@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useParams, useNavigate, Link } from 'react-router-dom'
 import toast from 'react-hot-toast'
 import api from '../api'
+import { FaLocationDot } from "react-icons/fa6";
 
 function JobDetails() {
   const { id }       = useParams()
@@ -66,6 +67,8 @@ function JobDetails() {
       <div className="rounded-2xl border p-7 md:p-10 mb-6" style={{ background: 'var(--surface)', borderColor: 'var(--border)' }}>
         <div className="flex flex-wrap items-center gap-2 mb-5">
           <span className="badge " style={{  background:"var(--color-brand)",color:"white"}} >{job.category}</span>
+          <span className="badge " style={{  background:"",color:"black"}} ><FaLocationDot />{job.city || "-----"}</span>
+          <span className="badge " style={{  background:"",color:"black"}} > Rs.{job.pay || "-----"}</span>
           
         </div>
 
@@ -73,8 +76,11 @@ function JobDetails() {
           {job.title}
         </h1>
 
-        <p style={{ fontSize: 15, color: 'var(--muted)', lineHeight: 1.7, whiteSpace: 'pre-wrap', marginBottom: '1.5rem' }}>
+        <p style={{ fontSize: 18, color: 'var(--muted)', lineHeight: 1.7, whiteSpace: 'pre-wrap', marginBottom: '1.5rem' }}>
           {job.description}
+        </p>
+        <p style={{ fontSize: 15, color: 'var(--muted)', lineHeight: 1.7, whiteSpace: 'pre-wrap', marginBottom: '1.5rem' }}>
+          {job.address || "Address will be here"}
         </p>
 
         <div className="rounded-xl p-4 flex gap-3 items-start" style={{ background:"var(--color-brand)", border: '1px solid rgba(245,158,11,.2)' }}>

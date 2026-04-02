@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useState, useEffect } from 'react'
+import { FaLocationDot } from "react-icons/fa6";
 
 const categoryColors = {
   'General':           { bg: 'rgba(124,58,237,.12)', color: '#a78bfa', border: 'rgba(124,58,237,.25)' },
@@ -73,7 +74,7 @@ function JobCard({ job }) {
           background: "", color: "black", border: `1px solid ${catStyle.border}`,
           textTransform: 'uppercase', letterSpacing: '.05em',
         }}>
-          {job.pay || 'Rs----'}
+          RS.{job.pay || '----'}
         </span>
       </div>
 
@@ -87,17 +88,15 @@ function JobCard({ job }) {
 
       {/* Description */}
       <p style={{
-        fontSize: 15, color: 'var(--muted)', flex: 1, margin: 0,
+        fontSize: 16, color: 'var(--muted)', flex: 1, margin: 0, display: 'flex', alignItems: 'center', gap: 4
       }}>
         {job.description?.length > 120 ? `${job.description.slice(0, 120)}…` : job.description}
       </p>
 
 
-      <p style={{
-        fontSize: 12, color: 'var(--muted)', flex: 1, margin: 0,
-      }}>
-        {job.description?.length > 120 ? `${job.description.slice(0, 120)}…` : job.address||"Address"}
-      </p>
+      <p style={{ fontSize: 12, color: 'var(--muted)', flex: 1, margin: 0, display: 'flex', alignItems: 'center', gap: 4 }}>
+  <FaLocationDot /> {job.address || "Address"}
+</p>
 
       {/* Footer */}
       <div style={{
