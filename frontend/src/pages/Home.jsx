@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 
 const slides = [
   {
-    url: "https://images.unsplash.com/photo-1568992688065-536aad8a12f6?w=1600&q=80",
+    url: "https://media.istockphoto.com/id/2215930957/photo/happy-group-of-employees-smiling-at-a-restaurant.webp?a=1&b=1&s=612x612&w=0&k=20&c=p6yWS4335Du7cAPGZ7v_v6AUxjJmqkkuXV89AkFkUdU=",
     label: "Delivery & Courier",
   },
   {
@@ -76,13 +76,13 @@ const steps = [
 ];
 
 const CATEGORIES = [
-  { name: "Poster Design" },
+  { name: "General" },
   { name: "Photography" },
   { name: "Teaching" },
   { name: "Content Writing" },
   { name: "Social Media" },
   { name: "Security" },
-  { name: "General" },
+  { name: "Delivery Rider" },
 ];
 
 export default function Home() {

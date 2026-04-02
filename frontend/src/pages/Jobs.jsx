@@ -3,7 +3,16 @@ import { useSearchParams } from 'react-router-dom'
 import api from '../api'
 import JobCard from '../components/JobCard'
 
-const ALL_CATS = ['All', 'General', 'Data Entry', 'Social Media', 'Usability Testing', 'Photography', 'Content Writing', 'Research & Survey']
+const ALL_CATS = [
+  "All",
+  "General",
+  "Photography",
+  "Teaching",
+  "Content Writing",
+  "Social Media",
+  "Security",
+  "Delivery Rider",
+];
 
 function Jobs() {
   const [jobs, setJobs]       = useState([])

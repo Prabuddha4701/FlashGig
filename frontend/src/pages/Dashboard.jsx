@@ -6,12 +6,12 @@ import api from "../api";
 
 const CATEGORIES = [
   "General",
-  "Data Entry",
-  "Social Media",
-  "Usability Testing",
   "Photography",
+  "Teaching",
   "Content Writing",
-  "Research & Survey",
+  "Social Media",
+  "Security",
+  "Delivery Rider",
 ];
 
 const categoryColors = {
