@@ -33,15 +33,7 @@ export default function Navbar() {
     return () => window.removeEventListener('resize', update)
   }, [])
 
-  useEffect(() => {
-    if (isDark) {
-      document.documentElement.classList.remove('light')
-      localStorage.setItem('theme', 'dark')
-    } else {
-      document.documentElement.classList.add('light')
-      localStorage.setItem('theme', 'light')
-    }
-  }, [isDark])
+  
 
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, u => setUser(u))
