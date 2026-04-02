@@ -120,7 +120,7 @@ export default function Navbar() {
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
 
             {/* Theme toggle */}
-            <button
+            {/* <button
               onClick={() => setIsDark(d => !d)}
               aria-label="Toggle theme"
               style={{
@@ -132,21 +132,21 @@ export default function Navbar() {
                 flexShrink: 0,
               }}
             >
-              {/* Sun (left) */}
+              
               <span style={{
                 position: 'absolute', left: 7, top: '50%', transform: 'translateY(-50%)',
                 display: 'flex', alignItems: 'center',
                 color: isDark ? 'rgba(255,255,255,0.2)' : 'var(--muted)',
                 transition: 'color 0.3s',
               }}><SunIcon /></span>
-              {/* Moon (right) */}
+              
               <span style={{
                 position: 'absolute', right: 7, top: '50%', transform: 'translateY(-50%)',
                 display: 'flex', alignItems: 'center',
                 color: isDark ? 'var(--color-brand-light)' : 'rgba(0,0,0,0.15)',
                 transition: 'color 0.3s',
               }}><MoonIcon /></span>
-              {/* Thumb */}
+             
               <span style={{
                 position: 'absolute', top: 3, width: 20, height: 20, borderRadius: '50%',
                 left: isDark ? 'calc(100% - 23px)' : 3,
@@ -154,7 +154,8 @@ export default function Navbar() {
                 boxShadow: isDark ? '0 0 8px rgba(124,58,237,0.5)' : '0 1px 3px rgba(0,0,0,0.15)',
                 transition: 'left 0.3s cubic-bezier(0.34,1.56,0.64,1), background 0.3s',
               }} />
-            </button>
+            </button> 
+            */}
 
             {/* Auth — desktop only */}
             {!isMobile && (
