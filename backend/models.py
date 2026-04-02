@@ -7,7 +7,10 @@ class JobBase(BaseModel):
     title: str
     description: str
     category: str
-    
+    city: str
+    address: str
+    pay: float
+
 class JobCreate(JobBase):
     pass
 
