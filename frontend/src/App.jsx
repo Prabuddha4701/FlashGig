@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import { useEffect } from 'react'
 import Navbar from './components/Navbar'
+import Footer from './components/Footer'
 import Home from './pages/Home'
 import Jobs from './pages/Jobs'
 import JobDetails from './pages/JobDetails'
@@ -36,6 +37,7 @@ function App() {
           <Route path="/dashboard"             element={<Dashboard />} />
         </Routes>
       </main>
+      <Footer />
     </div>
   )
 }
