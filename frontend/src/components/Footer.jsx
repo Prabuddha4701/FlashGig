@@ -90,7 +90,7 @@ export default function Footer() {
                 background: 'linear-gradient(135deg,#7c3aed,#5b21b6)',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 color: '#fff', fontWeight: 900, fontSize: 12,
-                boxShadow: '0 2px 8px rgba(124,58,237,0.4)',
+                
               }}>UG</div>
               <span style={{ fontFamily: 'var(--font-display)', color: 'var(--text)', fontWeight: 800, fontSize: 18, letterSpacing: '-0.02em' }}>
                 UniGig
@@ -142,34 +142,7 @@ export default function Footer() {
       <div style={{ maxWidth: 1100, margin: '0 auto', padding: '24px 24px' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16 }}>
           {/* Social icons */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            {socials.map(s => (
-              <a
-                key={s.label}
-                href={s.href}
-                aria-label={s.label}
-                style={{
-                  width: 34, height: 34, borderRadius: '50%',
-                  border: '1px solid var(--border)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  color: 'var(--muted)', textDecoration: 'none',
-                  transition: 'border-color 0.2s, color 0.2s, background 0.2s',
-                }}
-                onMouseEnter={e => {
-                  e.currentTarget.style.borderColor = 'rgba(108,71,255,0.5)'
-                  e.currentTarget.style.color = 'var(--color-brand-light)'
-                  e.currentTarget.style.background = 'rgba(108,71,255,0.08)'
-                }}
-                onMouseLeave={e => {
-                  e.currentTarget.style.borderColor = 'var(--border)'
-                  e.currentTarget.style.color = 'var(--muted)'
-                  e.currentTarget.style.background = 'transparent'
-                }}
-              >
-                {s.icon}
-              </a>
-            ))}
-          </div>
+          
 
           {/* Copyright */}
           <p style={{ fontSize: 12, color: 'var(--subtle)' }}>

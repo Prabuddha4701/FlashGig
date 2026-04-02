@@ -15,7 +15,7 @@ function Jobs() {
 
   useEffect(() => {
     api.get('/jobs/')
-      .then(r => setJobs(r.data))
+      .then(r => {setJobs(r.data)})
       .catch(() => setError('Could not load jobs. Please try again.'))
       .finally(() => setLoading(false))
   }, [])
@@ -42,10 +42,7 @@ function Jobs() {
 
       {/* Search bar */}
       <div style={{ position: 'relative', marginBottom: 20 }}>
-        <span style={{
-          position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)',
-          fontSize: 16, pointerEvents: 'none',
-        }}>🔍</span>
+        
         <input
           className="input"
           style={{ paddingLeft: 42, fontSize: 14, height: 46 }}

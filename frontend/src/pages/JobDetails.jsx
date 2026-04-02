@@ -60,31 +60,16 @@ function JobDetails() {
 
   return (
     <div className="page max-w-3xl" style={{ maxWidth: 760, margin: '0 auto' }}>
-      {/* Back */}
-      <Link to="/jobs" className="inline-flex items-center gap-1.5 text-sm mb-7" style={{ color: 'var(--muted)' }}
-        onMouseEnter={e => e.currentTarget.style.color='var(--color-brand-light)'}
-        onMouseLeave={e => e.currentTarget.style.color='var(--muted)'}
-      >
-        ← Back to Gigs
-      </Link>
+     
 
       {/* Job detail card */}
       <div className="rounded-2xl border p-7 md:p-10 mb-6" style={{ background: 'var(--surface)', borderColor: 'var(--border)' }}>
         <div className="flex flex-wrap items-center gap-2 mb-5">
-          <span className="badge badge-brand">{job.category}</span>
-          <span
-            className="badge"
-            style={{
-              background: daysLeft > 0 ? 'rgba(16,185,129,.1)' : 'rgba(239,68,68,.1)',
-              color: daysLeft > 0 ? '#34d399' : '#ef4444',
-              borderColor: daysLeft > 0 ? 'rgba(16,185,129,.25)' : 'rgba(239,68,68,.25)',
-            }}
-          >
-            {daysLeft > 0 ? `${daysLeft}d remaining` : 'Expired'}
-          </span>
+          <span className="badge " style={{  background:"var(--color-brand)",color:"white"}} >{job.category}</span>
+          
         </div>
 
-        <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(22px,4vw,32px)', fontWeight: 800, color: 'var(--text)', marginBottom: '1rem', lineHeight: 1.2 }}>
+        <h1 style={{ marginTop:"20px",fontFamily: 'var(--font-display)', fontSize: 'clamp(22px,4vw,32px)', fontWeight: 800, color: 'var(--text)', marginBottom: '1rem', lineHeight: 1.2 }}>
           {job.title}
         </h1>
 
@@ -92,10 +77,10 @@ function JobDetails() {
           {job.description}
         </p>
 
-        <div className="rounded-xl p-4 flex gap-3 items-start" style={{ background: 'rgba(245,158,11,.08)', border: '1px solid rgba(245,158,11,.2)' }}>
-          <span>⚠️</span>
-          <div style={{ fontSize: 13, color: '#f59e0b' }}>
-            <strong className="block mb-0.5" style={{ color: '#fbbf24' }}>Read before applying:</strong>
+        <div className="rounded-xl p-4 flex gap-3 items-start" style={{ background:"var(--color-brand)", border: '1px solid rgba(245,158,11,.2)' }}>
+          
+          <div style={{ fontSize: 13, color: 'white', }}>
+            <strong className="block mb-0.5" style={{ color: "white"}}>Read before applying:</strong>
             Submit genuine evidence only. Low-quality or fake submissions are rejected and may block future access.
           </div>
         </div>
@@ -138,7 +123,7 @@ function JobDetails() {
               onChange={e => setFormData({ ...formData, submission_data: e.target.value })}
             />
             <div className="flex justify-end mt-1">
-              <span style={{ fontSize: 11, color: charCount < 20 ? '#f59e0b' : charCount > 1000 ? '#ef4444' : 'var(--subtle)' }}>
+              <span style={{ fontSize: 11, color: 'black' }}>
                 {charCount} / 1000
               </span>
             </div>

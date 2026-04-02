@@ -38,12 +38,7 @@ const values = [
   },
 ]
 
-const stats = [
-  { value: '500+', label: 'Active Gigs' },
-  { value: '2k+',  label: 'Students Joined' },
-  { value: '7',    label: 'Days Gigs Stay Live' },
-  { value: '100%', label: 'Free for Students' },
-]
+
 
 export default function About() {
   return (
@@ -54,11 +49,10 @@ export default function About() {
         <div style={{
           position: 'absolute', top: '-60px', left: '50%', transform: 'translateX(-50%)',
           width: 600, height: 400, borderRadius: '50%',
-          background: 'radial-gradient(ellipse, rgba(108,71,255,0.18) 0%, transparent 70%)',
           pointerEvents: 'none',
         }} />
         <div style={{ position: 'relative', maxWidth: 680, margin: '0 auto' }}>
-          <span className="badge badge-brand" style={{ marginBottom: 20, display: 'inline-flex' }}>About UniGig</span>
+          
           <h1 style={{
             fontFamily: 'var(--font-display)', fontWeight: 800,
             fontSize: 'clamp(36px, 6vw, 60px)', color: 'var(--text)',
@@ -83,21 +77,7 @@ export default function About() {
       </section>
 
       {/* Stats bar */}
-      <section style={{ borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)', background: 'var(--surface)' }}>
-        <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 24px', display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)' }}>
-          {stats.map((s, i) => (
-            <div key={s.label} style={{
-              padding: '28px 20px', textAlign: 'center',
-              borderRight: i < stats.length - 1 ? '1px solid var(--border)' : 'none',
-            }}>
-              <div style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 30, color: 'var(--color-brand-light)', letterSpacing: '-0.03em', marginBottom: 4 }}>
-                {s.value}
-              </div>
-              <div style={{ fontSize: 13, color: 'var(--muted)', fontWeight: 500 }}>{s.label}</div>
-            </div>
-          ))}
-        </div>
-      </section>
+     
 
       {/* Mission */}
       <section style={{ maxWidth: 1100, margin: '0 auto', padding: '80px 24px' }}>
@@ -107,7 +87,7 @@ export default function About() {
           border: '1px solid var(--border)', background: 'var(--surface)',
         }}>
           <div style={{ padding: '56px 52px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-            <span className="badge badge-brand" style={{ marginBottom: 20, display: 'inline-flex', width: 'fit-content' }}>Our Mission</span>
+            
             <h2 style={{
               fontFamily: 'var(--font-display)', fontWeight: 800,
               fontSize: 'clamp(22px, 3vw, 32px)', color: 'var(--text)',
@@ -156,7 +136,7 @@ export default function About() {
       <section style={{ background: 'var(--surface)', borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto', padding: '80px 24px' }}>
           <div style={{ textAlign: 'center', marginBottom: 56 }}>
-            <span className="badge badge-brand" style={{ marginBottom: 16, display: 'inline-flex' }}>How It Works</span>
+            
             <h2 style={{
               fontFamily: 'var(--font-display)', fontWeight: 800,
               fontSize: 'clamp(24px, 4vw, 36px)', color: 'var(--text)', letterSpacing: '-0.025em',
@@ -176,17 +156,17 @@ export default function About() {
                   position: 'relative', textAlign: 'center',
                   transition: 'border-color 0.2s, transform 0.2s',
                 }}
-                onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(108,71,255,0.5)'; e.currentTarget.style.transform = 'translateY(-4px)' }}
+                onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-4px)' }}
                 onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.transform = 'translateY(0)' }}
               >
                 <div style={{
                   width: 56, height: 56, borderRadius: '50%', margin: '0 auto 8px',
-                  background: i === 1 ? 'linear-gradient(135deg, #6c47ff, #9d85ff)' : 'var(--surface)',
-                  border: `2px solid ${i === 1 ? 'transparent' : 'var(--border)'}`,
+                  background: 'var(--surface)',
+                  border: `2px solid var(--border)`,
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
                   fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 18,
-                  color: i === 1 ? '#fff' : 'var(--color-brand-light)',
-                  boxShadow: i === 1 ? '0 8px 20px rgba(108,71,255,0.4)' : 'none',
+                  color:'var(--color-brand-light)',
+                  
                 }}>
                   {s.n}
                 </div>
@@ -201,7 +181,7 @@ export default function About() {
       {/* Values */}
       <section style={{ maxWidth: 1100, margin: '0 auto', padding: '80px 24px' }}>
         <div style={{ textAlign: 'center', marginBottom: 52 }}>
-          <span className="badge badge-brand" style={{ marginBottom: 16, display: 'inline-flex' }}>What We Stand For</span>
+          
           <h2 style={{
             fontFamily: 'var(--font-display)', fontWeight: 800,
             fontSize: 'clamp(24px, 4vw, 36px)', color: 'var(--text)', letterSpacing: '-0.025em',
@@ -215,14 +195,14 @@ export default function About() {
                 background: 'var(--surface)', display: 'flex', flexDirection: 'column', gap: 14,
                 transition: 'border-color 0.2s, box-shadow 0.2s, transform 0.2s',
               }}
-              onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(108,71,255,0.45)'; e.currentTarget.style.transform = 'translateY(-3px)'; e.currentTarget.style.boxShadow = '0 12px 32px rgba(0,0,0,0.15)' }}
+              onMouseEnter={e => {  e.currentTarget.style.transform = 'translateY(-3px)'; }}
               onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none' }}
             >
               <div style={{
                 width: 46, height: 46, borderRadius: 12,
-                background: 'rgba(108,71,255,0.12)', border: '1px solid rgba(108,71,255,0.22)',
+                background: 'rgb(108, 71, 255)', border: '1px solid rgba(108,71,255,0.22)',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
-                color: 'var(--color-brand-light)',
+                color: 'white',
               }}>
                 {v.icon}
               </div>
@@ -237,13 +217,10 @@ export default function About() {
       <section style={{ maxWidth: 1100, margin: '0 auto', padding: '0 24px 88px' }}>
         <div style={{
           borderRadius: 20, padding: '56px 48px', textAlign: 'center',
-          background: 'linear-gradient(135deg, rgba(108,71,255,0.18) 0%, rgba(108,71,255,0.06) 100%)',
+          
           border: '1px solid rgba(108,71,255,0.25)', position: 'relative', overflow: 'hidden',
         }}>
-          <div style={{
-            position: 'absolute', top: '-80px', right: '-80px', width: 300, height: 300,
-            borderRadius: '50%', background: 'rgba(108,71,255,0.1)', pointerEvents: 'none',
-          }} />
+          
           <h2 style={{
             fontFamily: 'var(--font-display)', fontWeight: 800,
             fontSize: 'clamp(22px, 3.5vw, 34px)', color: 'var(--text)',

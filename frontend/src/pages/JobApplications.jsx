@@ -91,7 +91,7 @@ export default function JobApplications() {
                     <span className="badge badge-brand">#{i + 1}</span>
                   </div>
                   <p style={{ fontSize: 12, color: 'var(--color-accent-light)', marginLeft: 40 }}>
-                    📧 {app.contact_info}
+                     {app.contact_info}
                   </p>
                 </div>
                 <p style={{ fontSize: 11, color: 'var(--subtle)', background: 'var(--raised)', border: '1px solid var(--border)', padding: '3px 10px', borderRadius: 8, whiteSpace: 'nowrap' }}>
@@ -114,7 +114,7 @@ export default function JobApplications() {
               <div className="flex justify-end gap-2 mt-4">
                 <button
                   className="btn-secondary"
-                  style={{ padding: '6px 14px', fontSize: 12 }}
+                  style={{ padding: '6px 14px', fontSize: 12,marginTop:"10px" }}
                   onClick={() => navigator.clipboard?.writeText(app.contact_info)}
                 >
                   Copy Contact

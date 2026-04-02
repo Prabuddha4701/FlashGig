@@ -28,6 +28,10 @@ function JobCard({ job }) {
     return () => clearInterval(t)
   }, [job])
 
+  useEffect(() => {
+    console.log(job)
+  }, [])
+
   const isExpired  = timeLeft === 'Expired'
   const catStyle   = categoryColors[job.category] || categoryColors['General']
 
@@ -45,9 +49,9 @@ function JobCard({ job }) {
       minHeight: 200,
     }}
       onMouseEnter={e => {
-        e.currentTarget.style.borderColor = 'var(--color-brand)'
+        
         e.currentTarget.style.transform = 'translateY(-3px)'
-        e.currentTarget.style.boxShadow = '0 8px 28px rgba(124,58,237,.18)'
+        
       }}
       onMouseLeave={e => {
         e.currentTarget.style.borderColor = 'var(--border)'
@@ -59,18 +63,17 @@ function JobCard({ job }) {
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
         <span style={{
           fontSize: 11, fontWeight: 700, padding: '3px 10px', borderRadius: 999,
-          background: catStyle.bg, color: catStyle.color, border: `1px solid ${catStyle.border}`,
+          background: "var(--color-brand)", color: "white", border: `1px solid ${catStyle.border}`,
           textTransform: 'uppercase', letterSpacing: '.05em',
         }}>
           {job.category || 'General'}
         </span>
         <span style={{
-          fontSize: 12, fontWeight: 600, padding: '3px 10px', borderRadius: 999,
-          background: isExpired ? 'rgba(239,68,68,.1)' : 'rgba(16,185,129,.1)',
-          color: isExpired ? '#ef4444' : '#34d399',
-          border: `1px solid ${isExpired ? 'rgba(239,68,68,.2)' : 'rgba(16,185,129,.2)'}`,
+          fontSize: 11, fontWeight: 700, padding: '3px 10px', borderRadius: 999,
+          background: "", color: "black", border: `1px solid ${catStyle.border}`,
+          textTransform: 'uppercase', letterSpacing: '.05em',
         }}>
-          {timeLeft}
+          {job.pay || 'Rs----'}
         </span>
       </div>
 
@@ -84,9 +87,16 @@ function JobCard({ job }) {
 
       {/* Description */}
       <p style={{
-        fontSize: 13, color: 'var(--muted)', lineHeight: 1.65, flex: 1, margin: 0,
+        fontSize: 15, color: 'var(--muted)', flex: 1, margin: 0,
       }}>
         {job.description?.length > 120 ? `${job.description.slice(0, 120)}…` : job.description}
+      </p>
+
+
+      <p style={{
+        fontSize: 12, color: 'var(--muted)', flex: 1, margin: 0,
+      }}>
+        {job.description?.length > 120 ? `${job.description.slice(0, 120)}…` : job.address||"Address"}
       </p>
 
       {/* Footer */}

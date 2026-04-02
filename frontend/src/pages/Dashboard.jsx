@@ -16,12 +16,23 @@ const categoryColors = {
   'Research & Survey': { bg: 'rgba(16,185,129,.12)',  color: '#34d399', border: 'rgba(16,185,129,.25)' },
 }
 
+const CITIES = [
+  'Colombo',
+  'Negombo',
+  'Kandy',
+  'Galle',
+  'Kurunegala',
+  'Jaffna',
+  'Anuradhapura',
+  'Matara'
+]
+
 export default function Dashboard() {
   const navigate = useNavigate()
   const [tab, setTab]               = useState('jobs')
   const [myJobs, setMyJobs]         = useState([])
   const [loadingJobs, setLoadingJobs] = useState(false)
-  const [jobForm, setJobForm]       = useState({ title: '', description: '', category: 'General' })
+  const [jobForm, setJobForm]       = useState({ title: '', description: '', category: 'General',pay:'',address:'',city: ''  })
   const [submitting, setSubmitting] = useState(false)
   const [user, setUser]             = useState(null)
 
@@ -52,13 +63,16 @@ export default function Dashboard() {
 
   const handlePostJob = async e => {
     e.preventDefault()
-    if (!jobForm.title || !jobForm.description) { toast.error('Title and description are required.'); return }
+    if (!jobForm.title || !jobForm.description || !jobForm.pay) {
+      toast.error('All fields including payment are required.')
+      return
+    }
     setSubmitting(true)
     try {
       const token = await auth.currentUser.getIdToken()
       await api.post('/jobs/', jobForm, { headers: { Authorization: `Bearer ${token}` } })
-      toast.success('Gig posted successfully! 🎉')
-      setJobForm({ title: '', description: '', category: 'General' })
+      toast.success('Gig posted successfully! ')
+      setJobForm({ title: '', description: '', category: 'General', pay: '' , address:'',city:''})
       setTab('jobs')
       fetchJobs()
     } catch {
@@ -88,16 +102,16 @@ export default function Dashboard() {
       {/* ── Stat cards ── */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 14, marginBottom: 32 }}>
         {[
-          { label: 'Total Gigs',    value: myJobs.length,  icon: '📋', color: '#a78bfa' },
-          { label: 'Active',        value: activeCount,    icon: '✅', color: '#34d399' },
-          { label: 'Expired',       value: expiredCount,   icon: '⏰', color: '#f87171' },
+          { label: 'Total Gigs',    value: myJobs.length, color: '#a78bfa' },
+          { label: 'Active',        value: activeCount, color: '#34d399' },
+          { label: 'Expired',       value: expiredCount, color: '#f87171' },
         ].map(s => (
           <div key={s.label} style={{
             background: 'var(--surface)', border: '1px solid var(--border)',
             borderRadius: 16, padding: '20px 22px',
             display: 'flex', alignItems: 'center', gap: 14,
           }}>
-            <span style={{ fontSize: 28 }}>{s.icon}</span>
+            
             <div>
               <p style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 26, color: s.color, lineHeight: 1 }}>{s.value}</p>
               <p style={{ fontSize: 11, color: 'var(--muted)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '.07em', marginTop: 3 }}>{s.label}</p>
@@ -111,7 +125,7 @@ export default function Dashboard() {
         display: 'inline-flex', gap: 4, padding: 4, borderRadius: 12,
         background: 'var(--raised)', border: '1px solid var(--border)', marginBottom: 24,
       }}>
-        {[['jobs', '📋  My Gigs'], ['newJob', '＋  Post a Gig']].map(([key, label]) => (
+        {[['jobs', 'My Gigs'], ['newJob', '＋  Post a Gig']].map(([key, label]) => (
           <button
             key={key}
             onClick={() => setTab(key)}
@@ -173,13 +187,7 @@ export default function Dashboard() {
                   >
                     {/* Left — icon + info */}
                     <div style={{ display: 'flex', alignItems: 'center', gap: 14, flex: 1, minWidth: 0 }}>
-                      <div style={{
-                        width: 44, height: 44, borderRadius: 12, flexShrink: 0,
-                        background: catStyle.bg, border: `1px solid ${catStyle.border}`,
-                        display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 20,
-                      }}>
-                        {{ 'General': '⚙️', 'Data Entry': '📊', 'Social Media': '📣', 'Usability Testing': '📱', 'Photography': '📸', 'Content Writing': '✍️', 'Research & Survey': '🔬' }[job.category] || '⚙️'}
-                      </div>
+                      
                       <div style={{ minWidth: 0 }}>
                         <p style={{ fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 15, color: 'var(--text)', marginBottom: 6, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                           {job.title}
@@ -187,17 +195,9 @@ export default function Dashboard() {
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
                           <span style={{
                             fontSize: 11, fontWeight: 700, padding: '2px 9px', borderRadius: 999,
-                            background: catStyle.bg, color: catStyle.color, border: `1px solid ${catStyle.border}`,
+                            background: "var(--color-brand)", color: "white", border: `1px solid ${catStyle.border}`,
                           }}>{job.category}</span>
-                          <span style={{
-                            fontSize: 11, fontWeight: 700, padding: '2px 9px', borderRadius: 999,
-                            background: job.status === 'Active' ? 'rgba(16,185,129,.1)' : 'rgba(239,68,68,.1)',
-                            color: job.status === 'Active' ? '#34d399' : '#f87171',
-                            border: `1px solid ${job.status === 'Active' ? 'rgba(16,185,129,.25)' : 'rgba(239,68,68,.25)'}`,
-                          }}>{job.status}</span>
-                          {job.status === 'Active' && (
-                            <span style={{ fontSize: 11, color: 'var(--subtle)' }}>{daysLeft}d remaining</span>
-                          )}
+                          
                         </div>
                       </div>
                     </div>
@@ -249,6 +249,61 @@ export default function Dashboard() {
               <select className="input" value={jobForm.category} onChange={e => setJobForm({ ...jobForm, category: e.target.value })}>
                 {CATEGORIES.map(c => <option key={c}>{c}</option>)}
               </select>
+            </div>
+            <div>
+  <label className="label">City</label>
+  <select
+    className="input"
+    value={jobForm.city}
+    onChange={e =>
+      setJobForm({
+        ...jobForm,
+        city: e.target.value
+      })
+    }
+  >
+    <option value="">Select city</option>
+    {CITIES.map(c => (
+      <option key={c} value={c}>
+        {c}
+      </option>
+    ))}
+  </select>
+</div>
+
+
+
+
+            <div>
+          <label className="label">Address</label>
+              <input
+                className="input"
+                type="text"
+                placeholder="Enter payment amount"
+                value={jobForm.address}
+                onChange={e =>
+                  setJobForm({
+                    ...jobForm,
+                    address: e.target.value === '' ? '' : Number(e.target.value)
+                  })
+                }
+              />
+            </div>
+
+            <div>
+              <label className="label">Payment (LKR)</label>
+              <input
+                className="input"
+                type="number"
+                placeholder="Enter payment amount"
+                value={jobForm.pay}
+                onChange={e =>
+                  setJobForm({
+                    ...jobForm,
+                    pay: e.target.value === '' ? '' : Number(e.target.value)
+                  })
+                }
+              />
             </div>
 
             <div>

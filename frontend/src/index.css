@@ -127,11 +127,7 @@ a { text-decoration: none; transition: color 0.2s, opacity 0.2s; }
   transition: border-color 0.2s, box-shadow 0.2s, background 0.25s;
 }
 .input::placeholder, .form-input::placeholder { color: var(--subtle); }
-.input:focus, .form-input:focus {
-  border-color: var(--color-brand);
-  box-shadow: 0 0 0 3px rgba(108,71,255,0.10);
-  background: var(--surface);
-}
+
 textarea.input, textarea.form-input { resize: vertical; min-height: 120px; line-height: 1.6; }
 select.input, select.form-input { cursor: pointer; }
 

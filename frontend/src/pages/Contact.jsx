@@ -1,9 +1,9 @@
 import { useState } from 'react'
 
 const info = [
-  { label: 'Email',    value: 'support@unigig.io' },
+  { label: 'Email',    value: 'supportunigig@gmail.com' },
   { label: 'Response', value: 'Usually same day' },
-  { label: 'Coverage', value: 'Global · English' },
+  ,
 ]
 
 export default function Contact() {
@@ -13,13 +13,11 @@ export default function Contact() {
     <div className="page">
       {/* Header */}
       <div className="max-w-xl mx-auto text-center mb-12">
-        <span className="badge badge-brand mb-4">Get in Touch</span>
+        
         <h1 style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 'clamp(28px,5vw,44px)', color: 'var(--text)', marginBottom: '0.75rem' }}>
           How Can We Help?
         </h1>
-        <p style={{ fontSize: 15, color: 'var(--muted)', lineHeight: 1.65 }}>
-          Questions about UniGig, a task issue, or something else? Drop us a message.
-        </p>
+        
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-7 max-w-4xl mx-auto">
