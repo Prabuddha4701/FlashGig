@@ -24,7 +24,7 @@ export default function Navbar() {
   const [user, setUser]         = useState(null)
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
-  const [isDark, setIsDark]     = useState(() => localStorage.getItem('theme') !== 'light')
+  const [isDark, setIsDark] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768)
 
   useEffect(() => {

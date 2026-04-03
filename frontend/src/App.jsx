@@ -15,10 +15,10 @@ function App() {
   
   useEffect(() => {
     const saved = localStorage.getItem('theme')
-    if (saved === 'light') {
-      document.documentElement.classList.add('light')
+    if (saved !== "dark") {
+      document.documentElement.classList.add("light");
     } else {
-      document.documentElement.classList.remove('light')
+      document.documentElement.classList.remove("light");
     }
   }, [])
 
