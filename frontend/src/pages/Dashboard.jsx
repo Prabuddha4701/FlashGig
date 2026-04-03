@@ -54,13 +54,25 @@ const categoryColors = {
 
 const CITIES = [
   "Colombo",
+  "Gampaha",
   "Negombo",
   "Kandy",
   "Galle",
   "Kurunegala",
+  "Ratnapura",
   "Jaffna",
   "Anuradhapura",
   "Matara",
+  "Badulla",
+  "Batticaloa",
+  "Trincomalee",
+  "Polonnaruwa",
+  "Hambantota",
+  "Kalutara",
+  "Kegalle",
+  "Nuwara Eliya",
+  "Vavuniya",
+  "Ampara",
 ];
 
 export default function Dashboard() {
@@ -78,6 +90,26 @@ export default function Dashboard() {
   });
   const [submitting, setSubmitting] = useState(false);
   const [user, setUser] = useState(null);
+  const [confirmDelete, setConfirmDelete] = useState(null); // job to delete
+  const [deleting, setDeleting] = useState(false);
+
+  const handleDeleteJob = async () => {
+    if (!confirmDelete) return;
+    setDeleting(true);
+    try {
+      const token = await auth.currentUser.getIdToken();
+      await api.delete(`/jobs/${confirmDelete.id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      toast.success("Gig deleted successfully.");
+      setConfirmDelete(null);
+      fetchJobs();
+    } catch {
+      toast.error("Failed to delete gig.");
+    } finally {
+      setDeleting(false);
+    }
+  };
 
   useEffect(() => {
     const unsub = auth.onAuthStateChanged((u) => {
@@ -438,31 +470,60 @@ export default function Dashboard() {
                     </div>
 
                     
-                    <button
-                      style={{
-                        padding: "8px 18px",
-                        borderRadius: 9,
-                        fontSize: 13,
-                        fontWeight: 600,
-                        background: "transparent",
-                        color: "var(--color-brand-light)",
-                        border: "1px solid rgba(124,58,237,.35)",
-                        cursor: "pointer",
-                        fontFamily: "var(--font-sans)",
-                        whiteSpace: "nowrap",
-                        transition: "all .15s",
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.background =
-                          "rgba(124,58,237,.1)";
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.background = "transparent";
-                      }}
-                      onClick={() => navigate(`/jobs/${job.id}/applications`)}
-                    >
-                      View Apps →
-                    </button>
+                    <div style={{ display: "flex", gap: 8, alignItems: "center", flexShrink: 0 }}>
+                      <button
+                        style={{
+                          padding: "8px 18px",
+                          borderRadius: 9,
+                          fontSize: 13,
+                          fontWeight: 600,
+                          background: "transparent",
+                          color: "var(--color-brand-light)",
+                          border: "1px solid rgba(124,58,237,.35)",
+                          cursor: "pointer",
+                          fontFamily: "var(--font-sans)",
+                          whiteSpace: "nowrap",
+                          transition: "all .15s",
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.background = "rgba(124,58,237,.1)";
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.background = "transparent";
+                        }}
+                        onClick={() => navigate(`/jobs/${job.id}/applications`)}
+                      >
+                        View Apps →
+                      </button>
+                      <button
+                        title="Delete gig"
+                        style={{
+                          padding: "8px 12px",
+                          borderRadius: 9,
+                          fontSize: 15,
+                          fontWeight: 600,
+                          background: "transparent",
+                          color: "#f87171",
+                          border: "1px solid rgba(248,113,113,.3)",
+                          cursor: "pointer",
+                          fontFamily: "var(--font-sans)",
+                          whiteSpace: "nowrap",
+                          transition: "all .15s",
+                          lineHeight: 1,
+                        }}
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.background = "rgba(248,113,113,.1)";
+                          e.currentTarget.style.borderColor = "rgba(248,113,113,.6)";
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.background = "transparent";
+                          e.currentTarget.style.borderColor = "rgba(248,113,113,.3)";
+                        }}
+                        onClick={() => setConfirmDelete(job)}
+                      >
+                        🗑
+                      </button>
+                    </div>
                   </div>
                 );
               })}
@@ -627,6 +688,108 @@ export default function Dashboard() {
               )}
             </button>
           </form>
+        </div>
+      )}
+      {/* Delete Confirmation Modal */}
+      {confirmDelete && (
+        <div
+          style={{
+            position: "fixed",
+            inset: 0,
+            background: "rgba(0,0,0,0.6)",
+            backdropFilter: "blur(4px)",
+            zIndex: 1000,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            padding: 20,
+          }}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) setConfirmDelete(null);
+          }}
+        >
+          <div
+            style={{
+              background: "var(--surface)",
+              border: "1px solid var(--border)",
+              borderTop: "3px solid #f87171",
+              borderRadius: 20,
+              padding: "32px 28px",
+              maxWidth: 420,
+              width: "100%",
+              boxShadow: "0 24px 80px rgba(0,0,0,.5)",
+            }}
+          >
+            <div style={{ textAlign: "center", marginBottom: 20 }}>
+              <div style={{ fontSize: 40, marginBottom: 12 }}>🗑️</div>
+              <h3
+                style={{
+                  fontFamily: "var(--font-display)",
+                  fontWeight: 800,
+                  fontSize: 20,
+                  color: "var(--text)",
+                  marginBottom: 8,
+                }}
+              >
+                Delete Gig?
+              </h3>
+              <p style={{ fontSize: 14, color: "var(--muted)", lineHeight: 1.6 }}>
+                Are you sure you want to delete{" "}
+                <span style={{ color: "var(--text)", fontWeight: 600 }}>
+                  "{confirmDelete.title}"
+                </span>
+                ? This action cannot be undone and all applications will be removed.
+              </p>
+            </div>
+            <div style={{ display: "flex", gap: 10 }}>
+              <button
+                onClick={() => setConfirmDelete(null)}
+                disabled={deleting}
+                style={{
+                  flex: 1,
+                  padding: "11px",
+                  borderRadius: 10,
+                  fontSize: 14,
+                  fontWeight: 600,
+                  background: "var(--raised)",
+                  color: "var(--muted)",
+                  border: "1px solid var(--border)",
+                  cursor: "pointer",
+                  fontFamily: "var(--font-sans)",
+                  transition: "all .15s",
+                }}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleDeleteJob}
+                disabled={deleting}
+                style={{
+                  flex: 1,
+                  padding: "11px",
+                  borderRadius: 10,
+                  fontSize: 14,
+                  fontWeight: 700,
+                  background: deleting ? "rgba(248,113,113,.5)" : "#f87171",
+                  color: "#fff",
+                  border: "none",
+                  cursor: deleting ? "not-allowed" : "pointer",
+                  fontFamily: "var(--font-sans)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: 8,
+                  transition: "all .15s",
+                }}
+              >
+                {deleting ? (
+                  <><span className="spinner" style={{ borderTopColor: "#fff" }} /> Deleting…</>
+                ) : (
+                  "Yes, Delete"
+                )}
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>

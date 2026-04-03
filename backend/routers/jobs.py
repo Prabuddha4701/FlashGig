@@ -102,3 +102,22 @@ def get_job(job_id: str):
         raise HTTPException(status_code=404, detail="Job not found")
         
     return Job(**doc.to_dict())
+
+@router.delete("/{job_id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_job(job_id: str, current_user: dict = Depends(get_current_user)):
+    db = get_db()
+    if type(db).__name__ == "MockFirestore":
+        return
+
+    job_ref = db.collection("jobs").document(job_id)
+    doc = job_ref.get()
+
+    if not doc.exists:
+        raise HTTPException(status_code=404, detail="Job not found")
+
+    
+    job_data = doc.to_dict()
+    if job_data.get("provider_id") != current_user.get("uid"):
+        raise HTTPException(status_code=403, detail="Not authorized to delete this job")
+
+    job_ref.delete()

@@ -5,13 +5,25 @@ import JobCard from "../components/JobCard";
 
 const CITIES = [
   "Colombo",
+  "Gampaha",
   "Negombo",
   "Kandy",
   "Galle",
   "Kurunegala",
+  "Ratnapura",
   "Jaffna",
   "Anuradhapura",
   "Matara",
+  "Badulla",
+  "Batticaloa",
+  "Trincomalee",
+  "Polonnaruwa",
+  "Hambantota",
+  "Kalutara",
+  "Kegalle",
+  "Nuwara Eliya",
+  "Vavuniya",
+  "Ampara",
 ];
 
 const ALL_CATS = [
