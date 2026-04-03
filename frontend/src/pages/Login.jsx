@@ -73,11 +73,14 @@ export default function Login() {
         toast.error("Passwords do not match.");
         return;
       }
-      if (password.length < 6) {
-        toast.error("Password must be at least 6 characters.");
+      const passwordRules =
+        /^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]).{6,}$/;
+      if (!passwordRules.test(password)) {
+        toast.error(
+          "Password must be at least 6 characters, include one capital letter, one number, and one symbol.",
+        );
         return;
       }
-
       setLoading(true);
       try {
         const { user } = await createUserWithEmailAndPassword(
@@ -86,10 +89,8 @@ export default function Login() {
           password,
         );
 
-        
         await updateProfile(user, { displayName: `${firstName} ${lastName}` });
 
-        
         await setDoc(doc(db, "providers", user.uid), {
           firstName,
           lastName,
@@ -128,7 +129,6 @@ export default function Login() {
   return (
     <div className="min-h-[calc(100svh-64px)] flex items-center justify-center px-4 py-12">
       <div className="w-full max-w-md">
-        
         <div className="text-center mb-8">
           <Link
             to="/"
@@ -171,7 +171,6 @@ export default function Login() {
           </p>
         </div>
 
-        
         <div
           className="rounded-2xl border p-8"
           style={{
@@ -181,10 +180,8 @@ export default function Login() {
           }}
         >
           <form onSubmit={handleSubmit} style={fieldStyle}>
-            
             {!isLogin && (
               <>
-                
                 <div
                   style={{
                     display: "grid",
@@ -224,7 +221,6 @@ export default function Login() {
                   </div>
                 </div>
 
-                
                 <div>
                   <label className="label">
                     Contact Number{" "}
@@ -239,7 +235,6 @@ export default function Login() {
                   />
                 </div>
 
-                
                 <div>
                   <label
                     className="label"
@@ -265,7 +260,6 @@ export default function Login() {
                   />
                 </div>
 
-                
                 <div>
                   <label
                     className="label"
@@ -294,7 +288,6 @@ export default function Login() {
               </>
             )}
 
-            
             <div>
               <label className="label">
                 Email Address{" "}
@@ -311,7 +304,6 @@ export default function Login() {
               />
             </div>
 
-            
             <div>
               <label className="label">
                 Password{" "}
@@ -328,7 +320,6 @@ export default function Login() {
               />
             </div>
 
-            
             {!isLogin && (
               <div>
                 <label className="label">
