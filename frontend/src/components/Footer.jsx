@@ -78,11 +78,11 @@ export default function Footer() {
       borderTop: '1px solid var(--border)',
       marginTop: 'auto',
     }}>
-      {/* Main footer content */}
+      
       <div style={{ maxWidth: 1100, margin: '0 auto', padding: '56px 24px 40px' }}>
         <div style={{ display: 'grid', gridTemplateColumns: '1.6fr 1fr 1fr 1fr', gap: 40 }}>
 
-          {/* Brand column */}
+          
           <div>
             <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none', marginBottom: 16 }}>
               <div style={{
@@ -104,7 +104,7 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Link columns */}
+          
           {cols.map(col => (
             <div key={col.heading}>
               <h4 style={{
@@ -133,18 +133,18 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Divider */}
+      
       <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 24px' }}>
         <div style={{ height: 1, background: 'var(--border)' }} />
       </div>
 
-      {/* Bottom bar */}
+      
       <div style={{ maxWidth: 1100, margin: '0 auto', padding: '24px 24px' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16 }}>
-          {/* Social icons */}
+          
           
 
-          {/* Copyright */}
+          
           <p style={{ fontSize: 12, color: 'var(--subtle)' }}>
             © {new Date().getFullYear()} UniGig. All rights reserved.
           </p>

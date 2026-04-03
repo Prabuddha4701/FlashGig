@@ -87,7 +87,7 @@ export default function Navbar() {
           width: '100%', maxWidth: 1152, margin: '0 auto', padding: '0 24px',
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         }}>
-          {/* Logo */}
+          
           <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
             <div style={{
               width: 32, height: 32, borderRadius: 8, flexShrink: 0,
@@ -101,55 +101,20 @@ export default function Navbar() {
             </span>
           </Link>
 
-          {/* Desktop links — only show if not mobile */}
+          
           {!isMobile && (
             <div style={{ display: 'flex', alignItems: 'center', gap: 28 }}>
               <NavLinks />
             </div>
           )}
 
-          {/* Right controls */}
+          
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
 
-            {/* Theme toggle */}
-            {/* <button
-              onClick={() => setIsDark(d => !d)}
-              aria-label="Toggle theme"
-              style={{
-                position: 'relative', width: 52, height: 28, borderRadius: 99,
-                border: '1px solid', padding: 0, cursor: 'pointer', outline: 'none',
-                borderColor: isDark ? 'rgba(124,58,237,0.45)' : 'var(--border)',
-                background: isDark ? 'rgba(124,58,237,0.18)' : 'var(--raised)',
-                transition: 'background 0.3s, border-color 0.3s',
-                flexShrink: 0,
-              }}
-            >
-              
-              <span style={{
-                position: 'absolute', left: 7, top: '50%', transform: 'translateY(-50%)',
-                display: 'flex', alignItems: 'center',
-                color: isDark ? 'rgba(255,255,255,0.2)' : 'var(--muted)',
-                transition: 'color 0.3s',
-              }}><SunIcon /></span>
-              
-              <span style={{
-                position: 'absolute', right: 7, top: '50%', transform: 'translateY(-50%)',
-                display: 'flex', alignItems: 'center',
-                color: isDark ? 'var(--color-brand-light)' : 'rgba(0,0,0,0.15)',
-                transition: 'color 0.3s',
-              }}><MoonIcon /></span>
-             
-              <span style={{
-                position: 'absolute', top: 3, width: 20, height: 20, borderRadius: '50%',
-                left: isDark ? 'calc(100% - 23px)' : 3,
-                background: isDark ? '#7c3aed' : '#9ca3af',
-                boxShadow: isDark ? '0 0 8px rgba(124,58,237,0.5)' : '0 1px 3px rgba(0,0,0,0.15)',
-                transition: 'left 0.3s cubic-bezier(0.34,1.56,0.64,1), background 0.3s',
-              }} />
-            </button> 
-            */}
+            
+            
 
-            {/* Auth — desktop only */}
+            
             {!isMobile && (
               user ? (
                 <button onClick={handleLogout} className="btn-danger" style={{ padding: '6px 14px', fontSize: 13 }}>
@@ -164,7 +129,7 @@ export default function Navbar() {
               )
             )}
 
-            {/* Hamburger — mobile only */}
+            
             {isMobile && (
               <button
                 onClick={() => setMenuOpen(o => !o)}
@@ -180,7 +145,7 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Mobile drawer */}
+      
       {isMobile && (
         <div style={{
           position: 'fixed', inset: 0, zIndex: 40,

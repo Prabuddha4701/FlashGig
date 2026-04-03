@@ -11,7 +11,7 @@ export default function Contact() {
 
   return (
     <div className="page">
-      {/* Header */}
+      
       <div className="max-w-xl mx-auto text-center mb-12">
         
         <h1 style={{ fontFamily: 'var(--font-display)', fontWeight: 800, fontSize: 'clamp(28px,5vw,44px)', color: 'var(--text)', marginBottom: '0.75rem' }}>
@@ -21,7 +21,7 @@ export default function Contact() {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-7 max-w-4xl mx-auto">
-        {/* Form */}
+        
         <div className="lg:col-span-2 rounded-2xl border p-7" style={{ background: 'var(--surface)', borderColor: 'var(--border)', borderTop: '3px solid var(--color-brand)' }}>
           <form
             action={`mailto:support@unigig.io`}
@@ -61,7 +61,7 @@ export default function Contact() {
           </form>
         </div>
 
-        {/* Info sidebar */}
+        
         <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
           {info.map(i => (
             <div key={i.label} className="rounded-2xl border p-5" style={{ background: 'var(--surface)', borderColor: 'var(--border)' }}>
@@ -70,7 +70,7 @@ export default function Contact() {
             </div>
           ))}
 
-          {/* FAQ nudge */}
+          
           <div className="rounded-2xl border p-5 mt-auto" style={{ background: 'var(--raised)', borderColor: 'var(--border)' }}>
             <p style={{ fontSize: 13, fontWeight: 700, color: 'var(--text)', marginBottom: 6 }}>Quick Answers</p>
             <ul style={{ fontSize: 12, color: 'var(--muted)', lineHeight: 1.9, paddingLeft: 0, listStyle: 'none' }}>

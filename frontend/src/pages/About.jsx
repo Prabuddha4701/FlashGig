@@ -38,13 +38,11 @@ const values = [
   },
 ]
 
-
-
 export default function About() {
   return (
     <div style={{ background: 'var(--base)', overflow: 'hidden' }}>
 
-      {/* Hero */}
+      
       <section style={{ position: 'relative', padding: '80px 24px 72px', textAlign: 'center', overflow: 'hidden' }}>
         <div style={{
           position: 'absolute', top: '-60px', left: '50%', transform: 'translateX(-50%)',
@@ -76,10 +74,10 @@ export default function About() {
         </div>
       </section>
 
-      {/* Stats bar */}
+      
      
 
-      {/* Mission */}
+      
       <section style={{ maxWidth: 1100, margin: '0 auto', padding: '80px 24px' }}>
         <div style={{
           display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 0,
@@ -132,7 +130,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* How it works */}
+      
       <section style={{ background: 'var(--surface)', borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto', padding: '80px 24px' }}>
           <div style={{ textAlign: 'center', marginBottom: 56 }}>
@@ -178,7 +176,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* Values */}
+      
       <section style={{ maxWidth: 1100, margin: '0 auto', padding: '80px 24px' }}>
         <div style={{ textAlign: 'center', marginBottom: 52 }}>
           
@@ -213,7 +211,7 @@ export default function About() {
         </div>
       </section>
 
-      {/* CTA banner */}
+      
       <section style={{ maxWidth: 1100, margin: '0 auto', padding: '0 24px 88px' }}>
         <div style={{
           borderRadius: 20, padding: '56px 48px', textAlign: 'center',

@@ -41,7 +41,7 @@ export default function JobApplications() {
 
   return (
     <div className="page">
-      {/* Header */}
+      
       <Link
         to="/dashboard"
         className="inline-flex items-center gap-1.5 text-sm mb-6"
@@ -126,7 +126,7 @@ export default function JobApplications() {
                 (e.currentTarget.style.borderColor = "var(--border)")
               }
             >
-              {/* App header */}
+              
               <div
                 className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 mb-4"
                 style={{ borderBottom: "1px solid var(--border)" }}
@@ -178,7 +178,7 @@ export default function JobApplications() {
                 </p>
               </div>
 
-              {/* Evidence */}
+              
               <div>
                 <p className="label mb-2">Submission Evidence</p>
                 <div
@@ -196,7 +196,7 @@ export default function JobApplications() {
                 </div>
               </div>
 
-              {/* Actions */}
+              
               <div className="flex justify-end gap-2 mt-4">
                 <button
                   className="btn-secondary"

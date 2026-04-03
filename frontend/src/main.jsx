@@ -5,7 +5,6 @@ import { Toaster } from 'react-hot-toast'
 import './index.css'
 import App from './App.jsx'
 
-// Apply saved theme before first paint
 const saved = localStorage.getItem('theme')
 if (saved === 'light') document.documentElement.classList.add('light')
 

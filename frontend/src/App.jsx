@@ -12,7 +12,7 @@ import Dashboard from './pages/Dashboard'
 import JobApplications from './pages/JobApplications'
 
 function App() {
-  // Apply saved theme before first paint — prevents flash
+  
   useEffect(() => {
     const saved = localStorage.getItem('theme')
     if (saved === 'light') {

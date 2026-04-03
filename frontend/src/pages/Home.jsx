@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { auth } from "../firebase";
+import { onAuthStateChanged } from "firebase/auth";
 
 const slides = [
   {
@@ -23,7 +25,6 @@ const slides = [
     label: "Customer Service",
   },
 ];
-
 
 const features = [
   {
@@ -88,6 +89,19 @@ const CATEGORIES = [
 export default function Home() {
   const [current, setCurrent] = useState(0);
   const [fading, setFading] = useState(false);
+  const [providerName, setProviderName] = useState(null);
+
+  useEffect(() => {
+    const unsub = onAuthStateChanged(auth, u => {
+      if (u) {
+        const first = u.displayName ? u.displayName.split(' ')[0] : u.email.split('@')[0];
+        setProviderName(first);
+      } else {
+        setProviderName(null);
+      }
+    });
+    return () => unsub();
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -111,7 +125,7 @@ export default function Home() {
 
   return (
     <div style={{ position: "relative", zIndex: 1 }}>
-      {/* HERO */}
+      
       <section
         style={{
           position: "relative",
@@ -125,10 +139,10 @@ export default function Home() {
           padding: "80px 24px",
         }}
       >
-        {/* Slideshow bg */}
+        
         <div style={{ position: "absolute", inset: 0, zIndex: 0 }}>
           <img
-            src={slides[0].url} // Keeps the first photo static
+            src={slides[0].url} 
             alt="Background"
             style={{
               width: "100%",
@@ -147,8 +161,7 @@ export default function Home() {
           />
         </div>
 
-
-        {/* Content */}
+        
         <div
           style={{
             position: "relative",
@@ -158,6 +171,19 @@ export default function Home() {
           }}
         >
           
+          
+          {providerName && (
+            <p style={{
+              fontSize: 20,
+              color: 'rgba(196,181,253,0.85)',
+              fontWeight: 400,
+              letterSpacing: '0.01em',
+              marginBottom: 20,
+            }}>
+              Good to see you, {providerName}
+            </p>
+          )}
+
           <h1
             style={{
               fontSize: "clamp(40px,8vw,82px)",
@@ -253,7 +279,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* HOW IT WORKS */}
+      
       <section
         style={{ maxWidth: 1000, margin: "0 auto", padding: "72px 24px" }}
       >
@@ -344,7 +370,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* BROWSE BY CATEGORY */}
+      
       <section
         style={{
           background: "var(--surface)",
@@ -427,7 +453,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* WHY UNIGIG */}
+      
       <section
         style={{ maxWidth: 1000, margin: "0 auto", padding: "72px 24px" }}
       >
@@ -501,7 +527,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* CTA */}
+      
       <section style={{ padding: "0 24px 80px" }}>
         <div
           style={{

@@ -146,7 +146,7 @@ export default function Dashboard() {
 
   return (
     <div className="page">
-      {/* ── Header ── */}
+      
       <div style={{ marginBottom: 32 }}>
         <h1
           style={{
@@ -171,7 +171,7 @@ export default function Dashboard() {
         </p>
       </div>
 
-      {/* ── Stat cards ── */}
+      
       <div
         style={{
           display: "grid",
@@ -226,7 +226,7 @@ export default function Dashboard() {
         ))}
       </div>
 
-      {/* ── Tab switcher ── */}
+      
       <div
         style={{
           display: "inline-flex",
@@ -263,7 +263,7 @@ export default function Dashboard() {
         ))}
       </div>
 
-      {/* ── My Gigs tab ── */}
+      
       {tab === "jobs" && (
         <div
           style={{
@@ -387,7 +387,7 @@ export default function Dashboard() {
                       (e.currentTarget.style.borderColor = "var(--border)")
                     }
                   >
-                    {/* Left — icon + info */}
+                    
                     <div
                       style={{
                         display: "flex",
@@ -437,7 +437,7 @@ export default function Dashboard() {
                       </div>
                     </div>
 
-                    {/* Right — action */}
+                    
                     <button
                       style={{
                         padding: "8px 18px",
@@ -471,7 +471,7 @@ export default function Dashboard() {
         </div>
       )}
 
-      {/* ── Post a Gig tab ── */}
+      
       {tab === "newJob" && (
         <div
           style={{

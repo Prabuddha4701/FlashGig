@@ -39,7 +39,7 @@ function Jobs() {
   return (
     <div className="page">
 
-      {/* Header */}
+      
       <div style={{ marginBottom: 28 }}>
         <h1 style={{ fontFamily: 'var(--font-display)', fontSize: 'clamp(26px,5vw,40px)', fontWeight: 800, color: 'var(--text)', marginBottom: 6 }}>
           Browse Gigs
@@ -49,7 +49,7 @@ function Jobs() {
         </p>
       </div>
 
-      {/* Search bar */}
+      
       <div style={{ position: 'relative', marginBottom: 20 }}>
         
         <input
@@ -71,7 +71,7 @@ function Jobs() {
         )}
       </div>
 
-      {/* Category pills */}
+      
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 28 }}>
         {ALL_CATS.map(c => (
           <button
@@ -91,12 +91,12 @@ function Jobs() {
         ))}
       </div>
 
-      {/* Results count */}
+      
       <p style={{ fontSize: 13, color: 'var(--subtle)', marginBottom: 20 }}>
         {loading ? 'Loading…' : `${filtered.length} gig${filtered.length !== 1 ? 's' : ''} found`}
       </p>
 
-      {/* Content */}
+      
       {loading ? (
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '80px 0', gap: 16 }}>
           <div className="spinner" style={{ width: 36, height: 36, borderWidth: 3 }} />

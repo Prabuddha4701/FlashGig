@@ -60,7 +60,7 @@ function JobCard({ job }) {
         e.currentTarget.style.boxShadow = 'none'
       }}
     >
-      {/* Top row — category + time */}
+      
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 8 }}>
         <span style={{
           fontSize: 11, fontWeight: 700, padding: '3px 10px', borderRadius: 999,
@@ -78,7 +78,7 @@ function JobCard({ job }) {
         </span>
       </div>
 
-      {/* Title */}
+      
       <h3 style={{
         fontFamily: 'var(--font-display)', fontWeight: 700, fontSize: 17,
         color: 'var(--text)', lineHeight: 1.3, margin: 0,
@@ -86,19 +86,18 @@ function JobCard({ job }) {
         {job.title}
       </h3>
 
-      {/* Description */}
+      
       <p style={{
         fontSize: 16, color: 'var(--muted)', flex: 1, margin: 0, display: 'flex', alignItems: 'center', gap: 4
       }}>
         {job.description?.length > 120 ? `${job.description.slice(0, 120)}…` : job.description}
       </p>
 
-
       <p style={{ fontSize: 12, color: 'var(--muted)', flex: 1, margin: 0, display: 'flex', alignItems: 'center', gap: 4 }}>
   <FaLocationDot /> {job.address || "Address"}
 </p>
 
-      {/* Footer */}
+      
       <div style={{
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
         paddingTop: 14, borderTop: '1px solid var(--border)',

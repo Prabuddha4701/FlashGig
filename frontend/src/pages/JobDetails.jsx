@@ -63,7 +63,7 @@ function JobDetails() {
     <div className="page max-w-3xl" style={{ maxWidth: 760, margin: '0 auto' }}>
      
 
-      {/* Job detail card */}
+      
       <div className="rounded-2xl border p-7 md:p-10 mb-6" style={{ background: 'var(--surface)', borderColor: 'var(--border)' }}>
         <div className="flex flex-wrap items-center gap-2 mb-5">
           <span className="badge " style={{  background:"var(--color-brand)",color:"white"}} >{job.category}</span>
@@ -92,7 +92,7 @@ function JobDetails() {
         </div>
       </div>
 
-      {/* Application form */}
+      
       <div
         className="rounded-2xl border p-7 md:p-10"
         style={{ background: 'var(--surface)', borderColor: 'var(--border)', borderTop: '3px solid var(--color-brand)' }}
