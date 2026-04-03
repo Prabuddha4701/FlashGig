@@ -178,7 +178,6 @@ export default function Dashboard() {
 
   return (
     <div className="page">
-      
       <div style={{ marginBottom: 32 }}>
         <h1
           style={{
@@ -203,7 +202,6 @@ export default function Dashboard() {
         </p>
       </div>
 
-      
       <div
         style={{
           display: "grid",
@@ -258,7 +256,6 @@ export default function Dashboard() {
         ))}
       </div>
 
-      
       <div
         style={{
           display: "inline-flex",
@@ -295,7 +292,6 @@ export default function Dashboard() {
         ))}
       </div>
 
-      
       {tab === "jobs" && (
         <div
           style={{
@@ -419,7 +415,6 @@ export default function Dashboard() {
                       (e.currentTarget.style.borderColor = "var(--border)")
                     }
                   >
-                    
                     <div
                       style={{
                         display: "flex",
@@ -469,8 +464,14 @@ export default function Dashboard() {
                       </div>
                     </div>
 
-                    
-                    <div style={{ display: "flex", gap: 8, alignItems: "center", flexShrink: 0 }}>
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: 8,
+                        alignItems: "center",
+                        flexShrink: 0,
+                      }}
+                    >
                       <button
                         style={{
                           padding: "8px 18px",
@@ -486,7 +487,8 @@ export default function Dashboard() {
                           transition: "all .15s",
                         }}
                         onMouseEnter={(e) => {
-                          e.currentTarget.style.background = "rgba(124,58,237,.1)";
+                          e.currentTarget.style.background =
+                            "rgba(124,58,237,.1)";
                         }}
                         onMouseLeave={(e) => {
                           e.currentTarget.style.background = "transparent";
@@ -512,12 +514,15 @@ export default function Dashboard() {
                           lineHeight: 1,
                         }}
                         onMouseEnter={(e) => {
-                          e.currentTarget.style.background = "rgba(248,113,113,.1)";
-                          e.currentTarget.style.borderColor = "rgba(248,113,113,.6)";
+                          e.currentTarget.style.background =
+                            "rgba(248,113,113,.1)";
+                          e.currentTarget.style.borderColor =
+                            "rgba(248,113,113,.6)";
                         }}
                         onMouseLeave={(e) => {
                           e.currentTarget.style.background = "transparent";
-                          e.currentTarget.style.borderColor = "rgba(248,113,113,.3)";
+                          e.currentTarget.style.borderColor =
+                            "rgba(248,113,113,.3)";
                         }}
                         onClick={() => setConfirmDelete(job)}
                       >
@@ -532,7 +537,6 @@ export default function Dashboard() {
         </div>
       )}
 
-      
       {tab === "newJob" && (
         <div
           style={{
@@ -721,7 +725,7 @@ export default function Dashboard() {
             }}
           >
             <div style={{ textAlign: "center", marginBottom: 20 }}>
-              <div style={{ fontSize: 40, marginBottom: 12 }}>🗑️</div>
+              <div style={{ fontSize: 40, marginBottom: 12 }}>:/</div>
               <h3
                 style={{
                   fontFamily: "var(--font-display)",
@@ -733,12 +737,15 @@ export default function Dashboard() {
               >
                 Delete Gig?
               </h3>
-              <p style={{ fontSize: 14, color: "var(--muted)", lineHeight: 1.6 }}>
+              <p
+                style={{ fontSize: 14, color: "var(--muted)", lineHeight: 1.6 }}
+              >
                 Are you sure you want to delete{" "}
                 <span style={{ color: "var(--text)", fontWeight: 600 }}>
                   "{confirmDelete.title}"
                 </span>
-                ? This action cannot be undone and all applications will be removed.
+                ? This action cannot be undone and all applications will be
+                removed.
               </p>
             </div>
             <div style={{ display: "flex", gap: 10 }}>
@@ -783,7 +790,13 @@ export default function Dashboard() {
                 }}
               >
                 {deleting ? (
-                  <><span className="spinner" style={{ borderTopColor: "#fff" }} /> Deleting…</>
+                  <>
+                    <span
+                      className="spinner"
+                      style={{ borderTopColor: "#fff" }}
+                    />{" "}
+                    Deleting…
+                  </>
                 ) : (
                   "Yes, Delete"
                 )}
